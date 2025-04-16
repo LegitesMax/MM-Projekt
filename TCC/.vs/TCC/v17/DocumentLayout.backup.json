@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\JKU\\Sem-2\\Multimediasysteme\\Projekt\\MM-Projekt\\TCC\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6FDE03D7-8CE7-4D11-82F6-49732103CEBE}|TCC.ConApp\\TCC.ConApp.csproj|d:\\jku\\sem-2\\multimediasysteme\\projekt\\mm-projekt\\tcc\\tcc.conapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6FDE03D7-8CE7-4D11-82F6-49732103CEBE}|TCC.ConApp\\TCC.ConApp.csproj|solutionrelative:tcc.conapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\JKU\\Sem-2\\Multimediasysteme\\Projekt\\MM-Projekt\\TCC\\TCC.ConApp\\Program.cs",
+              "RelativeDocumentMoniker": "TCC.ConApp\\Program.cs",
+              "ToolTip": "D:\\JKU\\Sem-2\\Multimediasysteme\\Projekt\\MM-Projekt\\TCC\\TCC.ConApp\\Program.cs",
+              "RelativeToolTip": "TCC.ConApp\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-16T20:37:09.459Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
