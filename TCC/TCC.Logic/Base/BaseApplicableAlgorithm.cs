@@ -2,6 +2,10 @@
 
 namespace TCC.Logic.Base
 {
+    /// <summary>
+    /// Implements the general features of IApplicableAlgorithm and provides an abstract method ComputeOutput() to 
+    /// override in subclasses for the actual implementation of the algorithm
+    /// </summary>
     public abstract class BaseApplicableAlgorithm : IAppliableAlgorithm
     {
         string _input = string.Empty;
