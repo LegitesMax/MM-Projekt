@@ -6,6 +6,6 @@
         public int OutputSize { get; set; }
 
         public int SizeDifference => InputSize - OutputSize;
-        public double SizeDifferencePercent => (1.0 - OutputSize / InputSize) * 100;
+        public double SavedSizePercent => (double)SizeDifference / (double)InputSize * 100.0;
     }
 }

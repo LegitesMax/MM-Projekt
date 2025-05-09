@@ -2,7 +2,7 @@
 
 namespace TCC.Logic.Base
 {
-    internal interface IAppliableAlgorithm
+    public interface IAppliableAlgorithm
     {
         string Input { get; set; }
         string Output { get; }
