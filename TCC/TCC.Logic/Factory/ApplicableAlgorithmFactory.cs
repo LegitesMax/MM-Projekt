@@ -7,9 +7,9 @@ namespace TCC.Logic.Factory
     {
         //TODO: Add factory methods for all implementations of algorithms
 
-        public static IAppliableAlgorithm CreateHuffmanAlgorithm(string input)
+        public static AlgorithmResult CreateHuffmanAlgorithm(string input)
         {
-            return new HuffmanAlgorithmImpl() { Input = input };
+            return new HuffmanAlgorithmImpl().ComputeOutput(input);
         }
     }
 }

@@ -1,8 +1,80 @@
 ﻿@page
-@model IndexModel
+@using TCC.Logic.Base
+
+@model AlgorithmResult
 @{
     ViewData["Title"] = "Demo";
 }
 
-<h3>TTC - Toller Text Converter</h3>
-<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <h2>TTC - Toller Text Converter</h2>
+    <div class="row mt-4">
+        <!-- Input -->
+        <div class="col-md-5">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <label class="form-label mb-0">Input</label>
+                <a class="btn btn-outline-secondary btn-sm" id="btnUpload" asp-action="btnUploadfile">Upload file</a>
+            </div>
+
+            <textarea class="form-control" rows="20"></textarea>
+
+            <div class="d-flex justify-content-between">
+                <select class="form-select mt-2 me-2" id="inputEncoding">
+                    <option>Binary/Encoding</option>
+                </select>
+                <a class="btn btn-primary mt-2" id="btnCopyInput">Copy</a>
+            </div>
+        </div>
+
+        <!-- Middle -->
+        <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
+            <!-- Compress -->
+            <div class="w-100">
+                <select class="form-select mb-2" id="compressionType">
+                    <option>(Compression type)</option>
+                </select>
+
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-primary mb-2 w-100" id="btnCompress" asp-action="btnCompress">Compress</a>
+                    @* <a class="btn btn-danger mb-2" id="btnDecompress" asp-action="btnDecompress">Decompress</a> *@
+                </div>
+            </div>
+
+            <!-- Encrypt -->
+            <div class="py-5 w-100">
+                <select class="form-select mb-2" id="cipherType">
+                    <option>(Chiffre type)</option>
+                </select>
+
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-primary mb-2 w-100" id="btnEncrypt" asp-action="btnEncrypt">Encrypt</a>
+                    @* <a class="btn btn-danger mb-2" id="btnDecrypt" asp-action="btnDecrypt">Decrypt</a> *@
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-4 text-center">
+                <strong>Stats</strong><br />
+                <span id="stats">Size difference: xxx Bytes<br />xxx % saved</span>
+            </div>
+        </div>
+
+        <!-- Output -->
+        <div class="col-md-5">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <label class="form-label mb-0">Output</label>
+                <button class="btn btn-outline-secondary btn-sm" id="btnDownload" asp-action="btnDownloadAsFile">Download as file</button>
+            </div>
+
+            <textarea class="form-control" rows="20" id="outputText" readonly></textarea>
+
+            <div class="d-flex justify-content-between">
+                <select class="form-select mt-2 me-2" id="outputEncoding">
+                    <option>Binary/Encoding</option>
+                </select>
+                <a class="btn btn-primary mt-2" id="btnCopyOutput">Copy</a>
+            </div>
+
+        </div>
+    </div>
+</div>
