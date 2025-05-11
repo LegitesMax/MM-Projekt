@@ -2,9 +2,6 @@
 {
     public enum CompressionAlgorithms
     {
-        /*
         Huffman,
-        ...
-        */
     }
 }

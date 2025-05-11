@@ -13,7 +13,7 @@
         <div class="col-md-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <label class="form-label mb-0">Input</label>
-                <a class="btn btn-outline-secondary btn-sm" id="btnUpload" asp-action="btnUploadfile">Upload file</a>
+                <a type="button" class="btn btn-outline-secondary btn-sm" id="btnUpload" asp-action="btnUploadfile">Upload file</a>
             </div>
 
             <textarea class="form-control" rows="20"></textarea>
@@ -22,7 +22,7 @@
                 <select class="form-select mt-2 me-2" id="inputEncoding">
                     <option>Binary/Encoding</option>
                 </select>
-                <a class="btn btn-primary mt-2" id="btnCopyInput">Copy</a>
+                <a type="button" class="btn btn-primary mt-2" id="btnCopyInput" asp-action="btnCopyTextInput">Copy</a>
             </div>
         </div>
 
@@ -35,7 +35,7 @@
                 </select>
 
                 <div class="d-flex justify-content-center">
-                    <a class="btn btn-primary mb-2 w-100" id="btnCompress" asp-action="btnCompress">Compress</a>
+                    <a type="button" class="btn btn-primary mb-2 w-100" id="btnCompress" asp-action="btnCompress">Compress</a>
                     @* <a class="btn btn-danger mb-2" id="btnDecompress" asp-action="btnDecompress">Decompress</a> *@
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 </select>
 
                 <div class="d-flex justify-content-center">
-                    <a class="btn btn-primary mb-2 w-100" id="btnEncrypt" asp-action="btnEncrypt">Encrypt</a>
+                    <a type="button" class="btn btn-primary mb-2 w-100" id="btnEncrypt" asp-action="btnEncrypt">Encrypt</a>
                     @* <a class="btn btn-danger mb-2" id="btnDecrypt" asp-action="btnDecrypt">Decrypt</a> *@
                 </div>
             </div>
@@ -63,16 +63,18 @@
         <div class="col-md-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <label class="form-label mb-0">Output</label>
-                <button class="btn btn-outline-secondary btn-sm" id="btnDownload" asp-action="btnDownloadAsFile">Download as file</button>
+                <a type="button" class="btn btn-outline-secondary btn-sm" id="btnDownload" asp-action="btnDownloadAsFile">Download as file</a>
             </div>
 
-            <textarea class="form-control" rows="20" id="outputText" readonly></textarea>
+            <textarea class="form-control" rows="20" id="outputText" readonly>
+                @Model.Output.ToString();
+            </textarea>
 
             <div class="d-flex justify-content-between">
                 <select class="form-select mt-2 me-2" id="outputEncoding">
                     <option>Binary/Encoding</option>
                 </select>
-                <a class="btn btn-primary mt-2" id="btnCopyOutput">Copy</a>
+                <a type="button" class="btn btn-primary mt-2" id="btnCopyOutput" asp-action="btnCopyTextOutput">Copy</a>
             </div>
 
         </div>
