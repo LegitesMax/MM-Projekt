@@ -36,11 +36,7 @@
                 <div class="d-flex justify-content-between mt-2">
                     @* optionaler weiterer Select neben „Copy“, behält Layout bei *@
                     @Html.DropDownList("type", compressionSelection,new { @class = "form-select me-2", id = "type"})
-                    <a class="btn btn-primary"
-                       asp-action="btnCopyTextInput"
-                       id="btnCopyInput">
-                        Copy
-                    </a>
+                    <a class="btn btn-primary" asp-action="btnCopyTextInput" id="btnCopyInput"> Copy </a>
                 </div>
             </div>
 
@@ -50,31 +46,21 @@
                 <!-- Compress -->
                 <div class="w-100 mb-4">
                     @Html.DropDownList("compressionType", compressionSelection,new { @class = "form-select mb-2", id = "compressionType"})
-                    <button type="submit"
-                            class="btn btn-primary mb-2 w-100"
-                            id="btnCompress"
-                            formaction="@Url.Action("BtnCompressText","Home")">
-                        Compress
-                    </button>
+                    <button type="submit" class="btn btn-primary mb-2 w-100" id="btnCompress" formaction="@Url.Action("BtnCompressText","Home")"> Compress</button>
                 </div>
 
                 <!-- Encrypt -->
                 <div class="w-100 py-5">
                     @Html.DropDownList("encryptionType", encryptSelection, new { @class = "form-select mb-2", id = "encryptionType"})
-                    <button type="submit"
-                            class="btn btn-primary mb-2 w-100"
-                            id="btnEncrypt"
-                            formaction="@Url.Action("BtnEncrypt","Home")">
-                        Encrypt
-                    </button>
+                    <button type="submit" class="btn btn-primary mb-2 w-100" id="btnEncrypt" formaction="@Url.Action("BtnEncryptText","Home")"> Encrypt </button>
                 </div>
 
                 <!-- Stats -->
                 <div class="mt-4 text-center">
                     <strong>Stats</strong><br />
                     <span id="stats">
-                        Size difference: xxx Bytes<br />
-                        xxx % saved
+                        Size difference: @* @Model.Statistic.SizeDifference *@ Bytes<br />
+                        @* @Model.Statistic.SavedSizePercent *@ % saved
                     </span>
                 </div>
             </div>
@@ -83,11 +69,7 @@
             <div class="col-md-5">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <label class="form-label mb-0" for="outputText">Output</label>
-                    <a class="btn btn-outline-secondary btn-sm"
-                       asp-action="btnDownloadAsFile"
-                       id="btnDownload">
-                        Download as file
-                    </a>
+                    <a class="btn btn-outline-secondary btn-sm" asp-action="btnDownloadAsFile" id="btnDownload"> Download as file </a>
                 </div>
 
                 @* Textarea für Output *@

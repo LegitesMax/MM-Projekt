@@ -47,7 +47,7 @@ namespace TCC.Asp.Controllers
         {
             return encryptionType switch
             {
-                EncryptionAlgorithms.Caesar => new Logic.Implementations.HuffmanAlgorithmImpl(),
+                EncryptionAlgorithms.Caesar => new Logic.Implementations.CaesarAlgorithm(),
                 //Other Compress. Types....
                 _ => throw new NotSupportedException($"Algorithmus {encryptionType} wird nicht unterstützt.")
             };
