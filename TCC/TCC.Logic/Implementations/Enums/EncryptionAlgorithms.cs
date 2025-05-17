@@ -2,9 +2,8 @@
 {
     public enum EncryptionAlgorithms
     {
-        /*
          Caesar,
-        ...
+        /*...
          */
     }
 }

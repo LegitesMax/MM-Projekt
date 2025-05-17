@@ -17,70 +17,92 @@
                 }).ToArray();
 }
 
-<div class="container mt-4">
-    <h2>TTC - Toller Text Converter</h2>
-    <div class="row mt-4">
-        <!-- Input -->
-        <div class="col-md-5">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <label class="form-label mb-0">Input</label>
-                <a type="button" class="btn btn-outline-secondary btn-sm" id="btnUpload" asp-action="btnUploadfile">Upload file</a>
-            </div>
+<form asp-controller="Home" method="post" asp-antiforgery="true">
+    <div class="container mt-4">
+        <h2>TTC - Toller Text Converter</h2>
+        <div class="row mt-4">
 
-            <textarea class="form-control" rows="20"></textarea>
+            <!-- Input -->
+            <div class="col-md-5">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <label class="form-label mb-0" for="inputText">Input</label>
+                    <a class="btn btn-outline-secondary btn-sm"
+                       asp-action="btnUploadfile" id="btnUpload">Upload file</a>
+                </div>
 
-            <div class="d-flex justify-content-between">
+                @* Textarea für Input *@
+                @Html.TextArea("input", Model?.Input ?? string.Empty, 20, 0, new { @class = "form-control", id = "inputText" })
 
-                @Html.DropDownList("Type", compressionSelection, new { @class = "form-select mt-2 me-2" })
-
-                <a type="button" class="btn btn-primary mt-2" id="btnCopyInput" asp-action="btnCopyTextInput">Copy</a>
-            </div>
-        </div>
-
-        <!-- Middle -->
-        <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
-            <!-- Compress -->
-            <div class="w-100">
-                @Html.DropDownList("Type", compressionSelection, new { @class = "form-select mb-2" })
-
-                <div class="d-flex justify-content-center">
-                    <a type="button" class="btn btn-primary mb-2 w-100" id="btnCompress" asp-action="BtnCompressText">Compress</a>
-                    @* <a class="btn btn-danger mb-2" id="btnDecompress" asp-action="btnDecompress">Decompress</a> *@
+                <div class="d-flex justify-content-between mt-2">
+                    @* optionaler weiterer Select neben „Copy“, behält Layout bei *@
+                    @Html.DropDownList("type", compressionSelection,new { @class = "form-select me-2", id = "type"})
+                    <a class="btn btn-primary"
+                       asp-action="btnCopyTextInput"
+                       id="btnCopyInput">
+                        Copy
+                    </a>
                 </div>
             </div>
 
-            <!-- Encrypt -->
-            <div class="py-5 w-100">
- 
-                @Html.DropDownList("Type", encryptSelection, new { @class = "form-select mb-2" })
-                <div class="d-flex justify-content-center">
-                    <a type="button" class="btn btn-primary mb-2 w-100" id="btnEncrypt" asp-action="btnEncrypt">Encrypt</a>
-                    @* <a class="btn btn-danger mb-2" id="btnDecrypt" asp-action="btnDecrypt">Decrypt</a> *@
+            <!-- Middle -->
+            <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
+
+                <!-- Compress -->
+                <div class="w-100 mb-4">
+                    @Html.DropDownList("compressionType", compressionSelection,new { @class = "form-select mb-2", id = "compressionType"})
+                    <button type="submit"
+                            class="btn btn-primary mb-2 w-100"
+                            id="btnCompress"
+                            formaction="@Url.Action("BtnCompressText","Home")">
+                        Compress
+                    </button>
+                </div>
+
+                <!-- Encrypt -->
+                <div class="w-100 py-5">
+                    @Html.DropDownList("encryptionType", encryptSelection, new { @class = "form-select mb-2", id = "encryptionType"})
+                    <button type="submit"
+                            class="btn btn-primary mb-2 w-100"
+                            id="btnEncrypt"
+                            formaction="@Url.Action("BtnEncrypt","Home")">
+                        Encrypt
+                    </button>
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-4 text-center">
+                    <strong>Stats</strong><br />
+                    <span id="stats">
+                        Size difference: xxx Bytes<br />
+                        xxx % saved
+                    </span>
                 </div>
             </div>
 
-            <!-- Stats -->
-            <div class="mt-4 text-center">
-                <strong>Stats</strong><br />
-                <span id="stats">Size difference: xxx Bytes<br />xxx % saved</span>
-            </div>
-        </div>
+            <!-- Output -->
+            <div class="col-md-5">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <label class="form-label mb-0" for="outputText">Output</label>
+                    <a class="btn btn-outline-secondary btn-sm"
+                       asp-action="btnDownloadAsFile"
+                       id="btnDownload">
+                        Download as file
+                    </a>
+                </div>
 
-        <!-- Output -->
-        <div class="col-md-5">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <label class="form-label mb-0">Output</label>
-                <a type="button" class="btn btn-outline-secondary btn-sm" id="btnDownload" asp-action="btnDownloadAsFile">Download as file</a>
-            </div>
+                @* Textarea für Output *@
+                @Html.TextArea("output", Model?.Output ?? string.Empty, 20, 0, new { @class = "form-control", id = "outputText", @readonly = "readonly"} )
 
-            <textarea class="form-control" rows="20" id="outputText" readonly>
-            </textarea>
-
-            <div class="d-flex justify-content-between">
-                @Html.DropDownList("Type", encryptSelection, new { @class = "form-select mt-2 me-2" })
-                <a type="button" class="btn btn-primary mt-2" id="btnCopyOutput" asp-action="btnCopyTextOutput">Copy</a>
+                <div class="d-flex justify-content-between mt-2">
+                    @Html.DropDownList("type2", encryptSelection, new { @class = "form-select me-2", id = "type2"})
+                    <a class="btn btn-primary"
+                       asp-action="btnCopyTextOutput"
+                       id="btnCopyOutput">
+                        Copy
+                    </a>
+                </div>
             </div>
 
         </div>
     </div>
-</div>
+</form>
