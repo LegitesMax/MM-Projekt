@@ -1,5 +1,20 @@
-﻿@{
+﻿@model TCC.Logic.Base.AlgorithmResult;
+@{
     ViewData["Title"] = "Home Page";
+
+    var encryptSelection = Enum.GetValues<TCC.Logic.Implementations.Enums.EncryptionAlgorithms>().Select(x =>
+        new SelectListItem()
+                {
+                    Text = x.ToString(),
+                    Value = ((int)x).ToString()
+                }).ToArray();
+
+    var compressionSelection = Enum.GetValues<TCC.Logic.Implementations.Enums.CompressionAlgorithms>().Select(x =>
+        new SelectListItem()
+                {
+                    Text = x.ToString(),
+                    Value = ((int)x).ToString()
+                }).ToArray();
 }
 
 <div class="container mt-4">
@@ -15,9 +30,9 @@
             <textarea class="form-control" rows="20"></textarea>
 
             <div class="d-flex justify-content-between">
-                <select class="form-select mt-2 me-2" id="inputEncoding">
-                    <option>Binary/Encoding</option>
-                </select>
+
+                @Html.DropDownList("Type", compressionSelection, new { @class = "form-select mt-2 me-2" })
+
                 <a type="button" class="btn btn-primary mt-2" id="btnCopyInput" asp-action="btnCopyTextInput">Copy</a>
             </div>
         </div>
@@ -26,22 +41,18 @@
         <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
             <!-- Compress -->
             <div class="w-100">
-                <select class="form-select mb-2" id="compressionType">
-                    <option>(Compression type)</option>
-                </select>
+                @Html.DropDownList("Type", compressionSelection, new { @class = "form-select mb-2" })
 
                 <div class="d-flex justify-content-center">
-                    <a type="button" class="btn btn-primary mb-2 w-100" id="btnCompress" asp-action="btnCompress">Compress</a>
+                    <a type="button" class="btn btn-primary mb-2 w-100" id="btnCompress" asp-action="BtnCompressText">Compress</a>
                     @* <a class="btn btn-danger mb-2" id="btnDecompress" asp-action="btnDecompress">Decompress</a> *@
                 </div>
             </div>
 
             <!-- Encrypt -->
             <div class="py-5 w-100">
-                <select class="form-select mb-2" id="cipherType">
-                    <option>(Chiffre type)</option>
-                </select>
-
+ 
+                @Html.DropDownList("Type", encryptSelection, new { @class = "form-select mb-2" })
                 <div class="d-flex justify-content-center">
                     <a type="button" class="btn btn-primary mb-2 w-100" id="btnEncrypt" asp-action="btnEncrypt">Encrypt</a>
                     @* <a class="btn btn-danger mb-2" id="btnDecrypt" asp-action="btnDecrypt">Decrypt</a> *@
@@ -66,9 +77,7 @@
             </textarea>
 
             <div class="d-flex justify-content-between">
-                <select class="form-select mt-2 me-2" id="outputEncoding">
-                    <option>Binary/Encoding</option>
-                </select>
+                @Html.DropDownList("Type", encryptSelection, new { @class = "form-select mt-2 me-2" })
                 <a type="button" class="btn btn-primary mt-2" id="btnCopyOutput" asp-action="btnCopyTextOutput">Copy</a>
             </div>
 
