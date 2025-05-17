@@ -9,15 +9,24 @@ namespace TCC.Asp.Controllers
 {
     public partial class HomeController : Controller
     {
+        //Index loader
         public IActionResult Index()
         {
             return View();
         }
 
+
+        //partial Methods for the Partial Classes
         public partial IActionResult BtnCompressText(string input, CompressionAlgorithms compressionType);
-        public partial IActionResult BtnEncryptText(string input, EncryptionAlgorithms compressionType);
+        public partial IActionResult BtnEncryptText(string input, EncryptionAlgorithms encryptionType);
 
 
+        /// <summary>
+        /// Select the right method for compressioning
+        /// </summary>
+        /// <param name="compressionType">compression type of Enum</param>
+        /// <returns></returns>
+        /// <exception cref="NotSupportedException"></exception>
         public BaseApplicableAlgorithm SelectCompressionModel(CompressionAlgorithms compressionType)
         {
             return compressionType switch
@@ -28,7 +37,24 @@ namespace TCC.Asp.Controllers
             };
         }
 
+        /// <summary>
+        /// select the right method for encryptioning
+        /// </summary>
+        /// <param name="encryptionType">enryption type of Enum</param>
+        /// <returns></returns>
+        /// <exception cref="NotSupportedException"></exception>
+        public BaseApplicableAlgorithm SelectEnryptionModel(EncryptionAlgorithms encryptionType)
+        {
+            return encryptionType switch
+            {
+                EncryptionAlgorithms.Caesar => new Logic.Implementations.HuffmanAlgorithmImpl(),
+                //Other Compress. Types....
+                _ => throw new NotSupportedException($"Algorithmus {encryptionType} wird nicht unterstützt.")
+            };
+        }
 
+
+        //Error Page
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
