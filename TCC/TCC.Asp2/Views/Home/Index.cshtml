@@ -59,8 +59,25 @@
                 <div class="mt-4 text-center">
                     <strong>Stats</strong><br />
                     <span id="stats">
-                        Size difference: @* @Model.Statistic.SizeDifference *@ Bytes<br />
-                        @* @Model.Statistic.SavedSizePercent *@ % saved
+                        Size difference: 
+                        @if (Model == null)
+                        {
+                            <span>-</span>
+                        }
+                        else
+                        {
+                            <span>@Model.Statistic.SizeDifference</span>
+                        } Bytes
+                        <br />
+
+                        @if (Model == null)
+                        {
+                            <span>-</span>
+                        }
+                        else
+                        {
+                            <span>@Model.Statistic.SavedSizePercent</span>
+                        } saved
                     </span>
                 </div>
             </div>
