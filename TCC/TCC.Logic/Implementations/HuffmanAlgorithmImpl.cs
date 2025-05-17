@@ -9,8 +9,13 @@ namespace TCC.Logic.Implementations
             /// Hier wird die jeweilige Compresion-/Codierungsmethode umgesetzt
             /// <returns>Ergebnis der Codierung</returns>
 
+            var result = new AlgorithmResult();
+
+            result.Output = "test";
+
+            return result;
             //TODO: implement
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCC.ConApp", "TCC.ConApp\TC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCC.Logic", "TCC.Logic\TCC.Logic.csproj", "{2AF0CF6B-EC20-4B05-9EE9-40B4D300EDD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCC.Asp", "TCC.Asp\TCC.Asp.csproj", "{E07D3BFE-B7C3-4F66-9BF8-BA4A91F2423A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCC.Asp", "TCC.Asp2\TCC.Asp.csproj", "{F993B087-9432-4CAA-97ED-DCB6B6FD5241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{2AF0CF6B-EC20-4B05-9EE9-40B4D300EDD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AF0CF6B-EC20-4B05-9EE9-40B4D300EDD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AF0CF6B-EC20-4B05-9EE9-40B4D300EDD9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E07D3BFE-B7C3-4F66-9BF8-BA4A91F2423A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E07D3BFE-B7C3-4F66-9BF8-BA4A91F2423A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E07D3BFE-B7C3-4F66-9BF8-BA4A91F2423A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E07D3BFE-B7C3-4F66-9BF8-BA4A91F2423A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F993B087-9432-4CAA-97ED-DCB6B6FD5241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F993B087-9432-4CAA-97ED-DCB6B6FD5241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F993B087-9432-4CAA-97ED-DCB6B6FD5241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F993B087-9432-4CAA-97ED-DCB6B6FD5241}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
