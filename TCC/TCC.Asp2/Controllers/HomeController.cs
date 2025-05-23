@@ -31,6 +31,7 @@ namespace TCC.Asp.Controllers
             return compressionType switch
             {
                 CompressionAlgorithms.Huffman => new Logic.Implementations.HuffmanAlgorithmImpl(),
+                CompressionAlgorithms.RLE => new Logic.Implementations.RLEImpl(),
                 //Other Compress. Types....
                 _ => throw new NotSupportedException($"Algorithmus {compressionType} wird nicht unterstützt.")
             };
