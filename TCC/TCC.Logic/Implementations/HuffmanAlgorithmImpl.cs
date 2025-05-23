@@ -1,78 +1,104 @@
-﻿using System.Xml.Linq;
+﻿using System.Text;
+using System.Xml.Linq;
 using TCC.Logic.Base;
+using TCC.Logic.Implementations.Logic;
 
 namespace TCC.Logic.Implementations
 {
     public class HuffmanAlgorithmImpl : BaseApplicableAlgorithm
     {
+        private Node TreeRoot { get; set; }
+
         public override AlgorithmResult ComputeOutput(string input)
         {
-            //TODO IMPLEMENT CORRECLY - THIS IS AH TESTS CASE FOR FRONTEND
-
-            /// Hier wird die jeweilige Compresion-/Codierungsmethode umgesetzt
-            /// <returns>Ergebnis der Codierung</returns>
-
-            var result = new AlgorithmResult();
-
-            result.Input = input;
-            result.Output = Encode(input).Encoded.ToString();
+            var result = new AlgorithmResult
+            {
+                Input = input,
+                Output = Encode(input)
+            };
 
             return result;
         }
 
-        public class Node
+        private string Encode(string input)
         {
-            public char C; public int F; public Node L, R;
-            public bool Leaf => L == null && R == null;
-            public Node(char c, int f) => (C, F) = (c, f);
-        }
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
 
-        public static (string Encoded, Node Root) Encode(string s)
-        {
-            var freq = s.GroupBy(c => c).ToDictionary(g => g.Key, g => g.Count());
-            var pq = new PriorityQueue<Node, int>(freq.Select(kv => (new Node(kv.Key, kv.Value), kv.Value)));
+            var histogram = Helper.CreateHistogram(input);
+            var nodes = histogram.Select(h => new Node { Histogramm = h }).ToList();
 
-            while (pq.Count > 1)
+            while (nodes.Count > 1)
             {
-                var a = pq.Dequeue();
-                var b = pq.Dequeue();
-                var n = new Node('\0', a.F + b.F) { L = a, R = b };
-                pq.Enqueue(n, n.F);
+                nodes = nodes.OrderBy(n => n.Histogramm.Count).ToList();
+
+                var left = nodes[0];
+                var right = nodes[1];
+
+                var parent = new Node
+                {
+                    Histogramm = new Histogramm
+                    {
+                        Count = left.Histogramm.Count + right.Histogramm.Count
+                    },
+                    Left = left,
+                    Right = right
+                };
+
+                nodes.RemoveRange(0, 2);
+                nodes.Add(parent);
             }
 
-            var root = pq.Dequeue();
-            var codes = new Dictionary<char, string>();
-            void Walk(Node node, string p)
+            TreeRoot = nodes[0];
+            AssignCodes(TreeRoot, "");
+
+            var encoded = new StringBuilder();
+            foreach (char ch in input)
             {
-                if (node.Leaf)
-                    codes[node.C] = p == string.Empty ? "0" : p;
+                encoded.Append(FindCode(TreeRoot, ch));
+            }
+
+            return encoded.ToString();
+        }
+
+
+
+        private void AssignCodes(Node node, string code)
+        {
+            if (node == null) return;
+
+            if (node.Left == null && node.Right == null)
+            {
+                if (code.Length == 0)
+                {
+                    node.Code = "0";  
+                }
                 else
                 {
-                    Walk(node.L, p + "0");
-                    Walk(node.R, p + "1");
-                }
+                    node.Code = code;  
+                }  
+                return;
             }
-            Walk(root, string.Empty);
 
-            var encoded = string.Concat(s.Select(c => codes[c]));
-            return (encoded, root);
+            AssignCodes(node.Left, code + "0");
+            AssignCodes(node.Right, code + "1");
+
         }
 
-        public static string Decode(string bits, Node root)
+        private string FindCode(Node node, char target)
         {
-            var cur = root;
-            var output = new List<char>();
-            foreach (var b in bits)
-            {
-                cur = (b == '0') ? cur.L : cur.R;
-                if (cur.Leaf)
-                {
-                    output.Add(cur.C);
-                    cur = root;
-                }
-            }
-            return new string(output.ToArray());
-        }
+            if (node == null) return null;
 
+            if (node.Left == null && node.Right == null && node.Histogramm.Character == target)
+                return node.Code;
+
+            string left = FindCode(node.Left, target);
+            if (left != null) return left;
+
+            return FindCode(node.Right, target);
+
+        }
     }
+
+
 }

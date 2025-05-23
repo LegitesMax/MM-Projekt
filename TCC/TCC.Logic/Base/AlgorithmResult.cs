@@ -17,6 +17,10 @@ namespace TCC.Logic.Base
             set
             {
                 _input = value;
+                if (string.IsNullOrEmpty(_input))
+                {
+                    _input = string.Empty;
+                }
                 Statistic.InputSize = Encoding.Default.GetBytes(Input).Length;
             }
         }

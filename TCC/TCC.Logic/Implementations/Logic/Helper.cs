@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TCC.Logic.Implementations.Logic
 {
-    public class InputTransformation
+    public class Helper
     {
         public static string ConvertToBinary(string input)
         {
-            if (string.IsNullOrEmpty(input)) 
+            if (string.IsNullOrEmpty(input))
                 return string.Empty;
 
             StringBuilder binaryOutput = new StringBuilder();
@@ -51,6 +52,35 @@ namespace TCC.Logic.Implementations.Logic
 
             return matches;
         }
+        public static List<Histogramm> CreateHistogram(string input)
+        {
+            var res = new List<Histogramm>();
 
+            foreach (char c in input)
+            {
+                bool found = false;
+
+                for (int i = 0; i < res.Count && !found; i++)
+                {
+                    if (res[i].Character == c)
+                    {
+                        res[i].Count++;
+                        found = true;
+                    }
+                }
+
+                if (!found)
+                {
+                    res.Add(new Histogramm
+                    {
+                        Character = c,
+                        Count = 1
+                    });
+                }
+            }
+
+            res.Sort((x, y) => (x.Count.CompareTo(y.Count)));
+            return res;
+        }
     }
 }

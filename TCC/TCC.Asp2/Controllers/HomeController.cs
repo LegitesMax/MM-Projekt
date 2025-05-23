@@ -32,6 +32,8 @@ namespace TCC.Asp.Controllers
             {
                 CompressionAlgorithms.Huffman => new Logic.Implementations.HuffmanAlgorithmImpl(),
                 CompressionAlgorithms.RLE => new Logic.Implementations.RLEImpl(),
+                //I was das des ka CompressionAlgorithm is owa zu testzwecken trotdem do
+                CompressionAlgorithms.Binary => new Logic.Implementations.Binary(),
                 //Other Compress. Types....
                 _ => throw new NotSupportedException($"Algorithmus {compressionType} wird nicht unterstützt.")
             };

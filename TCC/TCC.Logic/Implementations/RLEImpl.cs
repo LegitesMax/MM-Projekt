@@ -31,7 +31,7 @@ namespace TCC.Logic.Implementations
             if (string.IsNullOrEmpty(input)) return string.Empty;
 
             var sb = new StringBuilder();
-            var patterns = InputTransformation.FindPatterns(input, 1, 4);
+            var patterns = Helper.FindPatterns(input, 1, 4);
             int patternIndex = 0;
             int i = 0;
 

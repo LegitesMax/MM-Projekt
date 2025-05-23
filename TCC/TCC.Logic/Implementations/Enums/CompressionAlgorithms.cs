@@ -2,6 +2,6 @@
 {
     public enum CompressionAlgorithms
     {
-        Huffman, RLE
+        Huffman, RLE, Binary
     }
 }
