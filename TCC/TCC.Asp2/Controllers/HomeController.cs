@@ -22,7 +22,7 @@ namespace TCC.Asp.Controllers
 
         /// <summary>
         /// Select the right method for compressioning
-        /// </summary>
+        /// </summary>  
         /// <param name="compressionType">compression type of Enum</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
@@ -50,6 +50,7 @@ namespace TCC.Asp.Controllers
             return encryptionType switch
             {
                 EncryptionAlgorithms.Caesar => new Logic.Implementations.CaesarAlgorithm(),
+                EncryptionAlgorithms.Vigenere => new Logic.Implementations.VigenereChiffre(),
                 //Other Encrypt. Types....
                 _ => throw new NotSupportedException($"Algorithmus {encryptionType} wird nicht unterstützt.")
             };

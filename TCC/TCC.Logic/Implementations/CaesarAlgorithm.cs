@@ -11,6 +11,17 @@ namespace TCC.Logic.Implementations
     {
         public override AlgorithmResult ComputeOutput(string input)
         {
+            var result = new AlgorithmResult
+            {
+                Input = input,
+                Output = Encrypt(input)
+            };
+
+            return result;
+        }
+
+        private string Encrypt(string input)
+        {
             throw new NotImplementedException();
         }
     }
