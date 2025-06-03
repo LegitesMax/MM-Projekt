@@ -4,6 +4,7 @@
     {
          Caesar,
          Vigenere,
+         Hill,
         /*...
          */
     }

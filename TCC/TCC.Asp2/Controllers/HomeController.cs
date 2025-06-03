@@ -51,6 +51,7 @@ namespace TCC.Asp.Controllers
             {
                 EncryptionAlgorithms.Caesar => new Logic.Implementations.CaesarAlgorithm(),
                 EncryptionAlgorithms.Vigenere => new Logic.Implementations.VigenereChiffre(),
+                EncryptionAlgorithms.Hill => new Logic.Implementations.Hill(),
                 //Other Encrypt. Types....
                 _ => throw new NotSupportedException($"Algorithmus {encryptionType} wird nicht unterstützt.")
             };
