@@ -5,6 +5,7 @@
          Caesar,
          Vigenere,
          Hill,
+         OneTimePad,
         /*...
          */
     }

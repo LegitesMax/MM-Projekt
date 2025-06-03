@@ -9,19 +9,20 @@ namespace TCC.Logic.Implementations
 {
     public class Hill : BaseApplicableAlgorithm
     {
-        private readonly int[,] keyMatrix = new int[,] { { 3, 3 }, { 2, 5 } };
+        
         private const int Mod = 26;
         public override AlgorithmResult ComputeOutput(string input)
         {
+            int[,] keyMatrix = new int[,] { { 3, 3 }, { 2, 5 } };
             var result = new AlgorithmResult
             {
                 Input = input,
-                Output = Encrypt(input)
+                Output = Encrypt(input, keyMatrix)
             };
 
             return result;
         }
-        private string Encrypt(string input)
+        private string Encrypt(string input, int[,] keyMatrix)
         {
             input = FixInputString(input.ToUpper());
 
@@ -53,7 +54,7 @@ namespace TCC.Logic.Implementations
 
             if (result.Length % 2 != 0)
                 result.Append('A');
-            /*Node: Extra zeichen da der Input eine gerade Länge
+            /*Note: Extra zeichen da der Input eine gerade Länge
              haben muss*/
 
             return result.ToString();
