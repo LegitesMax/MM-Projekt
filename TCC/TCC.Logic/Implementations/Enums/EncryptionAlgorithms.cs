@@ -6,6 +6,7 @@
          Vigenere,
          Hill,
          OneTimePad,
+         Beaufort,
         /*...
          */
     }

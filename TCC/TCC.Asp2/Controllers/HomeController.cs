@@ -53,6 +53,7 @@ namespace TCC.Asp.Controllers
                 EncryptionAlgorithms.Vigenere => new Logic.Implementations.VigenereChiffre(),
                 EncryptionAlgorithms.Hill => new Logic.Implementations.Hill(),
                 EncryptionAlgorithms.OneTimePad => new Logic.Implementations.OneTimePad(),
+                EncryptionAlgorithms.Beaufort => new Logic.Implementations.Beaufort(),
                 //Other Encrypt. Types....
                 _ => throw new NotSupportedException($"Algorithmus {encryptionType} wird nicht unterstützt.")
             };
