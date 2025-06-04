@@ -19,7 +19,10 @@ namespace TCC.Logic.Implementations
 
             return result;
         }
-
+        public override AlgorithmResult ComputeOutputDe(string input)
+        {
+            throw new NotImplementedException();
+        }
         private string Encode(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -98,6 +101,7 @@ namespace TCC.Logic.Implementations
             return FindCode(node.Right, target);
 
         }
+
     }
 
 

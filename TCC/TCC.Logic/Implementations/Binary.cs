@@ -22,6 +22,12 @@ namespace TCC.Logic.Implementations
 
             return result;
         }
+
+        public override AlgorithmResult ComputeOutputDe(string input)
+        {
+            throw new NotImplementedException();
+        }
+
         public string Encode(string input)
         {
             return Helper.ConvertToBinary(input);

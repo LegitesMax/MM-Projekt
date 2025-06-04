@@ -14,7 +14,6 @@ namespace TCC.Logic.Implementations
         public override AlgorithmResult ComputeOutput(string input)
         {
             string key = "XMCKL";
-            key = FixKeyLength(key);
             var result = new AlgorithmResult
             {
                 Input = input,
@@ -23,41 +22,72 @@ namespace TCC.Logic.Implementations
 
             return result;
         }
+        public override AlgorithmResult ComputeOutputDe(string input)
+        {
+            string key = "XMCKL";
+            var result = new AlgorithmResult
+            {
+                Input = input,
+                Output = Decrypt(input, key)
+            };
+
+            return result;
+        }
         private string Encrypt(string input,string key)
         {
+            key = FixKeyLength(key, input.Length);
+
             input = FixInputString(input.ToUpper());
 
             StringBuilder result = new StringBuilder();
 
             for (int i = 0; i < input.Length; i++)
             {
-                int charVal = (input[i] - 'A' + key[i] - 'A') % 26;
-                result.Append((char)(charVal + 'A'));
+                if (i != 0)
+                {
+                    int charVal = (input[i] - 'A' + key[i % key.Length] - 'A') % 26;
+                    result.Append((char)(charVal + 'A'));
+                }
+                else 
+                {
+                    int charVal = (input[i] - 'A' + key[0] - 'A') % 26;
+                    result.Append((char)(charVal + 'A'));
+                }
             }
 
             return result.ToString();
         }
-        /*
+        
         private string Decrypt(string input, string key)
         {
+            key = FixKeyLength(key, input.Length);
+
             StringBuilder result = new StringBuilder();
 
             for (int i = 0; i < input.Length; i++)
             {
-                int charVal = (input[i] - 'A' - (key[i] - 'A') + 26) % 26;
-                result.Append((char)(charVal + 'A'));
+                if (i != 0)
+                {
+                    int charVal = (input[i] - 'A' - (key[i % key.Length] - 'A') + 26) % 26;
+                    result.Append((char)(charVal + 'A'));
+                }
+                else
+                {
+                    int charVal = (input[i] - 'A' - (key[0] - 'A') + 26) % 26;
+                    result.Append((char)(charVal + 'A'));
+                }
             }
 
             return result.ToString();
         }
-         */
-        private string FixKeyLength(string key)
+         
+        private string FixKeyLength(string key,int length)
         {
             StringBuilder result = new StringBuilder();
 
-            for (int i = 0; i < key.Length; i++)
+            for (int i = 0; i < length; i++)
             {
-                key.Append(key[i % key.Length]);
+                result.Append(key[i % key.Length]);
             }
 
             return result.ToString();
@@ -75,6 +105,7 @@ namespace TCC.Logic.Implementations
 
             return result.ToString();
         }
-        
+
+
     }
 }

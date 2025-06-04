@@ -17,5 +17,16 @@ namespace TCC.Asp.Controllers
 
             return View("Index", result);
         }
+        public partial IActionResult BtnDecryptText(string input, EncryptionAlgorithms encryptionType)
+        {
+            var result = new AlgorithmResult();
+
+            var encryptionMethod = SelectEnryptionModel(encryptionType);
+
+            result.Output = encryptionMethod.ComputeOutputDe(input).Output;
+            result.Input = encryptionMethod.ComputeOutputDe(input).Input;
+
+            return View("Index", result);
+        }
     }
 }

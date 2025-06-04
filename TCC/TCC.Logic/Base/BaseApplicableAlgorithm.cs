@@ -9,5 +9,7 @@ namespace TCC.Logic.Base
         /// </summary>
         /// <returns>Ergebnis der Codierung</returns>
         public abstract AlgorithmResult ComputeOutput(string input);
+        public abstract AlgorithmResult ComputeOutputDe(string input);
+
     }
 }

@@ -22,6 +22,12 @@ namespace TCC.Logic.Implementations
 
             return result;
         }
+
+        public override AlgorithmResult ComputeOutputDe(string input)
+        {
+            throw new NotImplementedException();
+        }
+
         private string Encrypt(string input, int[,] keyMatrix)
         {
             input = FixInputString(input.ToUpper());

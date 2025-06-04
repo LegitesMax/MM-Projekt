@@ -7,20 +7,31 @@ using TCC.Logic.Base;
 
 namespace TCC.Logic.Implementations
 {
+
     public class VigenereChiffre : BaseApplicableAlgorithm
     {
         public override AlgorithmResult ComputeOutput(string input)
         {
+            string key = "KEY";
             var result = new AlgorithmResult
             {
                 Input = input,
-                Output = Encrypt(input)
+                Output = Encrypt(input,key)
             };
             return result;
         }
-        private string Encrypt(string input)
+        public override AlgorithmResult ComputeOutputDe(string input)
         {
             string key = "KEY";
+            var result = new AlgorithmResult
+            {
+                Input = input,
+                Output = Decrypt(input,key)
+            };
+            return result;
+        }
+        private string Encrypt(string input,string key)
+        {
             StringBuilder ciphertext = new StringBuilder();
             string repeatedKey = RepeatKey(input, key.ToUpper());
 
@@ -31,7 +42,7 @@ namespace TCC.Logic.Implementations
 
                 if (char.IsLetter(letter))
                 {
-                    char baseChar = char.IsUpper(letter)  ? 'A' : 'a';
+                    char baseChar = char.IsUpper(letter) ? 'A' : 'a';
 
                     int shift = keyChar - 'A';
                     char encryptedChar = (char)((((letter - baseChar) + shift) % 26) + baseChar);
@@ -61,17 +72,16 @@ namespace TCC.Logic.Implementations
                 }
                 else
                 {
-                    result.Append(c); 
+                    result.Append(c);
                 }
             }
 
             return result.ToString();
         }
-        /*
-        public static string Decrypt(string input)
-        {
-            string key = "KEY";
 
+
+        public static string Decrypt(string input,string key)
+        {
             StringBuilder plaintext = new StringBuilder();
             string repeatedKey = RepeatKey(input, key.ToUpper());
 
@@ -97,6 +107,6 @@ namespace TCC.Logic.Implementations
 
             return plaintext.ToString();
         }
-        */
+
     }
 }

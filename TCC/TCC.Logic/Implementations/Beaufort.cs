@@ -20,6 +20,17 @@ namespace TCC.Logic.Implementations
 
             return result;
         }
+        public override AlgorithmResult ComputeOutputDe(string input)
+        {
+            string key = "KEY";
+            var result = new AlgorithmResult
+            {
+                Input = input,
+                Output = Decrypt(input, key)
+            };
+
+            return result;
+        }
         private string Encrypt(string input, string key)
         {
             key = key.ToUpper();
@@ -50,11 +61,11 @@ namespace TCC.Logic.Implementations
 
             return result.ToString();
         }
-        /*
+        
         private string Decrypt(string input, string key)
         {
             return Encrypt(input, key); 
-        }*/
+        }
 
 
     }

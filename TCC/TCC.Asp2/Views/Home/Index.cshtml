@@ -49,11 +49,13 @@
                     <button type="submit" class="btn btn-primary mb-2 w-100" id="btnCompress" formaction="@Url.Action("BtnCompressText","Home")"> Compress</button>
                 </div>
 
-                <!-- Encrypt -->
+                <!-- Encrypt/Decrypt -->
                 <div class="w-100 py-5">
                     @Html.DropDownList("encryptionType", encryptSelection, new { @class = "form-select mb-2", id = "encryptionType"})
                     <button type="submit" class="btn btn-primary mb-2 w-100" id="btnEncrypt" formaction="@Url.Action("BtnEncryptText","Home")"> Encrypt </button>
+                    <button type="submit" class="btn btn-primary mb-2 w-100" id="btnDecrypt" formaction="@Url.Action("BtnDecryptText", "Home")"> Decrypt </button>
                 </div>
+
 
                 <!-- Stats -->
                 <div class="mt-4 text-center">
