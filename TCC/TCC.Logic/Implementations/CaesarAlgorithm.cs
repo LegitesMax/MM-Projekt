@@ -22,10 +22,20 @@ namespace TCC.Logic.Implementations
 
         public override AlgorithmResult ComputeOutputDe(string input,string? key)
         {
-            throw new NotImplementedException();
+            var result = new AlgorithmResult
+            {
+                Input = input,
+                Output = Decrypt(input)
+            };
+
+            return result;
         }
 
         private string Encrypt(string input)
+        {
+            throw new NotImplementedException();
+        }
+        private string Decrypt(string input)
         {
             throw new NotImplementedException();
         }

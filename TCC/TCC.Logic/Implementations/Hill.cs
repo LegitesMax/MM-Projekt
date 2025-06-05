@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TCC.Logic.Base;
+using TCC.Logic.Implementations.Logic;
 
 namespace TCC.Logic.Implementations
 {
     public class Hill : BaseApplicableAlgorithm
     {
-        
+        private int[,] keyMatrix = new int[,] { { 3, 3 }, { 2, 5 } };
+
         private const int Mod = 26;
         public override AlgorithmResult ComputeOutput(string input, string key)
         {
-            int[,] keyMatrix = new int[,] { { 3, 3 }, { 2, 5 } };
             //todo key in keymatix umwandeln
             var result = new AlgorithmResult
             {
                 Input = input,
-                Output = Encrypt(input, keyMatrix)
+                Output = Encrypt(input, key)
             };
 
             return result;
@@ -26,11 +27,19 @@ namespace TCC.Logic.Implementations
 
         public override AlgorithmResult ComputeOutputDe(string input,string key)
         {
+
             throw new NotImplementedException();
         }
 
-        private string Encrypt(string input, int[,] keyMatrix)
+        private string Encrypt(string input,string key)
         {
+            keyMatrix = Helper.CreateKeyFromString(key);
+
+            if (keyMatrix == null )
+            {
+                return "Key muss angegeben sein, Darf Keine Buchstaben haben und muss im Format (2:2 1 2 1 2) sein";
+            }
+
             input = FixInputString(input.ToUpper());
 
             StringBuilder result = new StringBuilder();
@@ -66,5 +75,6 @@ namespace TCC.Logic.Implementations
 
             return result.ToString();
         }
+
     }
 }

@@ -101,5 +101,40 @@ namespace TCC.Logic.Implementations.Logic
 
             return new string(chars);
         }
+        public static int[,] CreateKeyFromString(string key)
+        {
+
+            if (key == "" || key == null)
+            {
+                return null;
+                // Bricht Encript ab und wirft eine nachricht
+
+            }
+            foreach (char c in key)
+            {
+                if (char.IsLetter(c))
+                {
+                    return null;
+                    // Bricht Encript ab und wirft eine nachricht
+                }
+            }
+            string[] parts = key.Split(new[] { ':', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            int length = Convert.ToInt32(parts[0]);
+            int with = Convert.ToInt32(parts[1]);
+
+            int[,] result = new int[length, with];
+            int counter = 2;
+
+            for (int i = 0; i < length; i++)
+            {
+                for (int j = 0; j < with; j++)
+                {
+                    result[i, j] = Convert.ToInt32(parts[counter++]);
+                }
+            }
+
+            return result;
+        }
     }
 }
