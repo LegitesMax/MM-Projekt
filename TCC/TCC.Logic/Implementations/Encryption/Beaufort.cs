@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TCC.Logic.Base;
 
-namespace TCC.Logic.Implementations
+namespace TCC.Logic.Implementations.Encryption
 {
     public class Beaufort : BaseApplicableAlgorithm
     {
@@ -43,7 +43,7 @@ namespace TCC.Logic.Implementations
                 if (char.IsLetter(c))
                 {
                     char tmp = char.ToUpper(c);
-                    tmp = (char)('A' + ((key[counter % key.Length] - tmp + 26) % 26));
+                    tmp = (char)('A' + (key[counter % key.Length] - tmp + 26) % 26);
                     if (char.IsLower(c))
                     { 
                         result.Append(char.ToLower(tmp));

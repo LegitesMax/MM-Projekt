@@ -1,5 +1,9 @@
 ﻿using TCC.Logic.Base;
 using TCC.Logic.Implementations;
+using TCC.Logic.Implementations.Compression;
+using TCC.Logic.Implementations.Encryption;
+
+
 
 namespace TCC.Logic.Factory
 {
