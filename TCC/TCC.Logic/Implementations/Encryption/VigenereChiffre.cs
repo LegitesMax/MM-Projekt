@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TCC.Logic.Base;
 
-namespace TCC.Logic.Implementations
+namespace TCC.Logic.Implementations.Encryption
 {
 
     public class VigenereChiffre : BaseApplicableAlgorithm
@@ -47,7 +47,7 @@ namespace TCC.Logic.Implementations
                     char baseChar = char.IsUpper(letter) ? 'A' : 'a';
 
                     int shift = keyChar - 'A';
-                    char encryptedChar = (char)((((letter - baseChar) + shift) % 26) + baseChar);
+                    char encryptedChar = (char)((letter - baseChar + shift) % 26 + baseChar);
 
                     ciphertext.Append(encryptedChar);
                 }
@@ -101,7 +101,7 @@ namespace TCC.Logic.Implementations
                     char baseChar = char.IsUpper(letter) ? 'A' : 'a';
 
                     int shift = keyChar - 'A';
-                    char decryptedChar = (char)((((letter - baseChar) - shift + 26) % 26) + baseChar);
+                    char decryptedChar = (char)((letter - baseChar - shift + 26) % 26 + baseChar);
 
                     plaintext.Append(decryptedChar);
                 }

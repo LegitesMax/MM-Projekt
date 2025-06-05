@@ -4,6 +4,9 @@ using TCC.Asp.Models;
 using TCC.Asp2.Models;
 using TCC.Logic.Base;
 using TCC.Logic.Implementations.Enums;
+using Compression = TCC.Logic.Implementations.Compression;
+using Ecnrytpion = TCC.Logic.Implementations.Encryption;
+
 
 namespace TCC.Asp.Controllers
 {
@@ -34,8 +37,9 @@ namespace TCC.Asp.Controllers
         {
             return compressionType switch
             {
-                CompressionAlgorithms.Huffman => new Logic.Implementations.HuffmanAlgorithmImpl(),
-                CompressionAlgorithms.RLE => new Logic.Implementations.RLEImpl(),
+                CompressionAlgorithms.Huffman => new Compression.HuffmanAlgorithmImpl(),
+                CompressionAlgorithms.RLE => new Compression.RLEImpl(),
+                CompressionAlgorithms.LZW => new Compression.LZWImpl(),
                 //I was das des ka CompressionAlgorithm is owa zu testzwecken trotdem do
                 CompressionAlgorithms.Binary => new Logic.Implementations.Binary(),
                 //Other Compress. Types....
@@ -53,11 +57,11 @@ namespace TCC.Asp.Controllers
         {
             return encryptionType switch
             {
-                EncryptionAlgorithms.Caesar => new Logic.Implementations.CaesarAlgorithm(),
-                EncryptionAlgorithms.Vigenere => new Logic.Implementations.VigenereChiffre(),
-                EncryptionAlgorithms.Hill => new Logic.Implementations.Hill(),
-                EncryptionAlgorithms.OneTimePad => new Logic.Implementations.OneTimePad(),
-                EncryptionAlgorithms.Beaufort => new Logic.Implementations.Beaufort(),
+                EncryptionAlgorithms.Caesar => new Ecnrytpion.CaesarAlgorithm(),
+                EncryptionAlgorithms.Vigenere => new Ecnrytpion.VigenereChiffre(),
+                EncryptionAlgorithms.Hill => new Ecnrytpion.Hill(),
+                EncryptionAlgorithms.OneTimePad => new Ecnrytpion.OneTimePad(),
+                EncryptionAlgorithms.Beaufort => new Ecnrytpion.Beaufort(),
                 //Other Encrypt. Types....
                 _ => throw new NotSupportedException($"Algorithmus {encryptionType} wird nicht unterstützt.")
             };

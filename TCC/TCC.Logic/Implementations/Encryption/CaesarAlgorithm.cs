@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TCC.Logic.Base;
 
-namespace TCC.Logic.Implementations
+namespace TCC.Logic.Implementations.Encryption
 {
     public class CaesarAlgorithm : BaseApplicableAlgorithm
     {

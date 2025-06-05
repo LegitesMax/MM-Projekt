@@ -8,7 +8,7 @@ using TCC.Logic.Implementations.Logic;
 
 
 
-namespace TCC.Logic.Implementations
+namespace TCC.Logic.Implementations.Compression
 {
     //Run-Length Encoding
     public class RLEImpl : BaseApplicableAlgorithm
@@ -21,7 +21,14 @@ namespace TCC.Logic.Implementations
             var result = new AlgorithmResult();
 
             result.Input = input;
-            result.Output = Encode(input);
+            try
+            {
+                result.Output = Encode(input);
+            }
+            catch (Exception ex)
+            {
+                result.Output = $"Error during encoding: {ex.Message}";
+            }
 
             return result;
         }

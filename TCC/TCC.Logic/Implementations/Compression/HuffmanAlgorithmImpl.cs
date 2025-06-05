@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using TCC.Logic.Base;
 using TCC.Logic.Implementations.Logic;
 
-namespace TCC.Logic.Implementations
+namespace TCC.Logic.Implementations.Compression
 {
     public class HuffmanAlgorithmImpl : BaseApplicableAlgorithm
     {
@@ -11,11 +11,18 @@ namespace TCC.Logic.Implementations
 
         public override AlgorithmResult ComputeOutput(string input, string? key)
         {
-            var result = new AlgorithmResult
+            var result = new AlgorithmResult();
+
+            result.Input = input;
+            try
             {
-                Input = input,
-                Output = Encode(input)
-            };
+                result.Output = Encode(input);
+            }
+            catch (Exception ex)
+            {
+                result.Output = $"Error during encoding: {ex.Message}";
+            }
+
 
             return result;
         }

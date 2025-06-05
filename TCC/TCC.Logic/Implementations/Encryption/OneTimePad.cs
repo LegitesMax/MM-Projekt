@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TCC.Logic.Base;
 using TCC.Logic.Implementations.Logic;
 
-namespace TCC.Logic.Implementations
+namespace TCC.Logic.Implementations.Encryption
 {
     public class OneTimePad : BaseApplicableAlgorithm
     {
