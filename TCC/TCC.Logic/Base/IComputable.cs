@@ -2,6 +2,8 @@
 {
     public interface IComputable
     {
-        AlgorithmResult ComputeOutput(string input);
+        AlgorithmResult ComputeOutput(string input,string key);
+        AlgorithmResult ComputeOutputDe(string input, string key);
+
     }
 }

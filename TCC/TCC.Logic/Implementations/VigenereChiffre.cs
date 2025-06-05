@@ -10,9 +10,8 @@ namespace TCC.Logic.Implementations
 
     public class VigenereChiffre : BaseApplicableAlgorithm
     {
-        public override AlgorithmResult ComputeOutput(string input)
+        public override AlgorithmResult ComputeOutput(string input,string? key)
         {
-            string key = "KEY";
             var result = new AlgorithmResult
             {
                 Input = input,
@@ -20,9 +19,8 @@ namespace TCC.Logic.Implementations
             };
             return result;
         }
-        public override AlgorithmResult ComputeOutputDe(string input)
+        public override AlgorithmResult ComputeOutputDe(string input, string? key)
         {
-            string key = "KEY";
             var result = new AlgorithmResult
             {
                 Input = input,
@@ -32,6 +30,10 @@ namespace TCC.Logic.Implementations
         }
         private string Encrypt(string input,string key)
         {
+            if (key == null)
+            {
+                return "Key muss angegeben werden";
+            }
             StringBuilder ciphertext = new StringBuilder();
             string repeatedKey = RepeatKey(input, key.ToUpper());
 
@@ -82,6 +84,10 @@ namespace TCC.Logic.Implementations
 
         public static string Decrypt(string input,string key)
         {
+            if (key == null)
+            {
+                return "Key muss angegeben werden";
+            }
             StringBuilder plaintext = new StringBuilder();
             string repeatedKey = RepeatKey(input, key.ToUpper());
 

@@ -9,7 +9,7 @@ namespace TCC.Logic.Implementations
 {
     public class CaesarAlgorithm : BaseApplicableAlgorithm
     {
-        public override AlgorithmResult ComputeOutput(string input)
+        public override AlgorithmResult ComputeOutput(string input, string? key)
         {
             var result = new AlgorithmResult
             {
@@ -20,7 +20,7 @@ namespace TCC.Logic.Implementations
             return result;
         }
 
-        public override AlgorithmResult ComputeOutputDe(string input)
+        public override AlgorithmResult ComputeOutputDe(string input,string? key)
         {
             throw new NotImplementedException();
         }

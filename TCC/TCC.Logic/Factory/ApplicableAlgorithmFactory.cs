@@ -9,7 +9,7 @@ namespace TCC.Logic.Factory
 
         public static AlgorithmResult CreateHuffmanAlgorithm(string input)
         {
-            return new HuffmanAlgorithmImpl().ComputeOutput(input);
+            return new HuffmanAlgorithmImpl().ComputeOutput(input, string.Empty);
         }
     }
 }

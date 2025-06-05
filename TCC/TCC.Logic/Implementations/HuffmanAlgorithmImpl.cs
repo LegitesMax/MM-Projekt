@@ -9,7 +9,7 @@ namespace TCC.Logic.Implementations
     {
         private Node TreeRoot { get; set; }
 
-        public override AlgorithmResult ComputeOutput(string input)
+        public override AlgorithmResult ComputeOutput(string input, string? key)
         {
             var result = new AlgorithmResult
             {
@@ -19,7 +19,7 @@ namespace TCC.Logic.Implementations
 
             return result;
         }
-        public override AlgorithmResult ComputeOutputDe(string input)
+        public override AlgorithmResult ComputeOutputDe(string input, string? key)
         {
             throw new NotImplementedException();
         }

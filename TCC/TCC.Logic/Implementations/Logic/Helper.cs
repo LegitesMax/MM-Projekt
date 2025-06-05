@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -81,6 +82,24 @@ namespace TCC.Logic.Implementations.Logic
 
             res.Sort((x, y) => (x.Count.CompareTo(y.Count)));
             return res;
+        }
+        public static string Generate(int length)
+        {
+            const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var bytes = new byte[length];
+            var chars = new char[length];
+
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(bytes);
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = alphabet[bytes[i] % alphabet.Length];
+            }
+
+            return new string(chars);
         }
     }
 }

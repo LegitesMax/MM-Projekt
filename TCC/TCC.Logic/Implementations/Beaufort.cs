@@ -9,9 +9,8 @@ namespace TCC.Logic.Implementations
 {
     public class Beaufort : BaseApplicableAlgorithm
     {
-        public override AlgorithmResult ComputeOutput(string input)
+        public override AlgorithmResult ComputeOutput(string input,string? key)
         {
-            string key = "KEY";
             var result = new AlgorithmResult
             {
                 Input = input,
@@ -20,9 +19,8 @@ namespace TCC.Logic.Implementations
 
             return result;
         }
-        public override AlgorithmResult ComputeOutputDe(string input)
+        public override AlgorithmResult ComputeOutputDe(string input,string? key)
         {
-            string key = "KEY";
             var result = new AlgorithmResult
             {
                 Input = input,
@@ -33,6 +31,10 @@ namespace TCC.Logic.Implementations
         }
         private string Encrypt(string input, string key)
         {
+            if (key == null) 
+            {
+                return "Key muss angegeben werden";
+            }
             key = key.ToUpper();
             int counter = 0;
             StringBuilder result = new StringBuilder();

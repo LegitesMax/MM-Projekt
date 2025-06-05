@@ -3,6 +3,7 @@
     public class InputOutputStatistic
     {
         public int InputSize { get; set; }
+        public int KeySize { get; set; }
         public int OutputSize { get; set; }
 
         public int SizeDifference => InputSize - OutputSize;

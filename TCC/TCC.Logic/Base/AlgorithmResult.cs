@@ -11,6 +11,7 @@ namespace TCC.Logic.Base
         public AlgorithmResult() { }
 
         string _input = string.Empty;
+        string _key = string.Empty;
         public string Input
         {
             get => _input;
@@ -22,6 +23,19 @@ namespace TCC.Logic.Base
                     _input = string.Empty;
                 }
                 Statistic.InputSize = Encoding.Default.GetBytes(Input).Length;
+            }
+        }
+        public string Key
+        {
+            get => _key;
+            set
+            {
+                _key = value;
+                if (string.IsNullOrEmpty(_key))
+                {
+                    _key = string.Empty;
+                }
+                Statistic.KeySize = Encoding.Default.GetBytes(Key).Length;
             }
         }
 

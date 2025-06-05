@@ -11,9 +11,10 @@ namespace TCC.Logic.Implementations
     {
         
         private const int Mod = 26;
-        public override AlgorithmResult ComputeOutput(string input)
+        public override AlgorithmResult ComputeOutput(string input, string key)
         {
             int[,] keyMatrix = new int[,] { { 3, 3 }, { 2, 5 } };
+            //todo key in keymatix umwandeln
             var result = new AlgorithmResult
             {
                 Input = input,
@@ -23,7 +24,7 @@ namespace TCC.Logic.Implementations
             return result;
         }
 
-        public override AlgorithmResult ComputeOutputDe(string input)
+        public override AlgorithmResult ComputeOutputDe(string input,string key)
         {
             throw new NotImplementedException();
         }

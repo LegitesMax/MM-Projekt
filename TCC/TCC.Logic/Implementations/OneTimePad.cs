@@ -11,32 +11,39 @@ namespace TCC.Logic.Implementations
 {
     public class OneTimePad : BaseApplicableAlgorithm
     {
-        private static string key;
-        public override AlgorithmResult ComputeOutput(string input)
+        public override AlgorithmResult ComputeOutput(string input, string key)
         {
+
+            key = Helper.Generate(input.Length);
             var result = new AlgorithmResult
             {
                 Input = input,
-                Output = Encrypt(input,key)
+                Key = key,
+                Output = Encrypt(input, key)
+            };
+            return result;
+        }
+        public override AlgorithmResult ComputeOutputDe(string input,string key)
+        {
+            if (key == null || key == "")
+            {
+                key = Helper.Generate(input.Length);
+            }
+            var result = new AlgorithmResult
+            {
+                Input = input,
+                Key = key,
+                Output = Decrypt(input, key)
             };
 
             return result;
         }
-        public override AlgorithmResult ComputeOutputDe(string input)
-        {
-            var result = new AlgorithmResult
-            {
-                Input = input,
-                Output = "Kann nicht Decrypted werden" /*Decrypt(input, key)*/
-            };
-
-            return result;
-        }
+    
         private string Encrypt(string input,string key)
         {
             input = FixInputString(input.ToUpper());
 
-            key = Generate(input.Length);
+            key = Helper.Generate(input.Length);
             StringBuilder result = new StringBuilder();
 
             for (int i = 0; i < input.Length; i++)
@@ -55,24 +62,7 @@ namespace TCC.Logic.Implementations
 
             return result.ToString();
         }
-        public static string Generate(int length)
-        {
-            const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            var bytes = new byte[length];
-            var chars = new char[length];
 
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(bytes);
-            }
-
-            for (int i = 0; i < length; i++)
-            {
-                chars[i] = alphabet[bytes[i] % alphabet.Length];
-            }
-
-            return new string(chars);
-        }
 
         private string FixInputString(string input)
         {
@@ -95,7 +85,7 @@ namespace TCC.Logic.Implementations
          * zum decrypten verwenden
          */
 
-        /*private string Decrypt(string input, string key)
+        private string Decrypt(string input, string key)
         {
             key = FixKeyLength(key, input.Length);
 
@@ -128,7 +118,7 @@ namespace TCC.Logic.Implementations
             }
 
             return result.ToString();
-        }*/
+        }
 
 
 
