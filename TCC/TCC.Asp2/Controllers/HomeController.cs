@@ -17,6 +17,8 @@ namespace TCC.Asp.Controllers
 
         //partial Methods for the Partial Classes
         public partial IActionResult BtnCompressText(string input, CompressionAlgorithms compressionType);
+        public partial IActionResult BtnDecompressText(string input, CompressionAlgorithms compressionType);
+
         public partial IActionResult BtnEncryptText(string input, EncryptionAlgorithms encryptionType);
         public partial IActionResult BtnDecryptText(string input, EncryptionAlgorithms encryptionType);
 

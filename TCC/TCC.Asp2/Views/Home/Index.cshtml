@@ -43,10 +43,13 @@
             <!-- Middle -->
             <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
 
-                <!-- Compress -->
+                <!-- Compress/Decompress -->
                 <div class="w-100 mb-4">
                     @Html.DropDownList("compressionType", compressionSelection,new { @class = "form-select mb-2", id = "compressionType"})
+                    <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary mb-2 w-100" id="btnCompress" formaction="@Url.Action("BtnCompressText","Home")"> Compress</button>
+                    <button type="submit" style="background-color:#ffcccc; color:#800000; border:none;" class="btn mb-2 flex-fill" id="btnDecompress" formaction="@Url.Action("BtnDecompressText","Home")"> Decompress</button>
+                    </div>
                 </div>
 
                 <!-- Encrypt/Decrypt -->

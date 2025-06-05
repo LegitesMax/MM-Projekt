@@ -17,6 +17,17 @@ namespace TCC.Asp.Controllers
 
             return View("Index", result);
         }
+        public partial IActionResult BtnDecompressText(string input, CompressionAlgorithms compressionType)
+        {
+            var result = new AlgorithmResult();
+
+            var compressionMethod = SelectCompressionModel(compressionType);
+
+            result.Output = compressionMethod.ComputeOutputDe(input).Output;
+            result.Input = compressionMethod.ComputeOutputDe(input).Input;
+
+            return View("Index", result);
+        }
 
     }
 }

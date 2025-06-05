@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using TCC.Logic.Base;
@@ -10,10 +11,9 @@ namespace TCC.Logic.Implementations
 {
     public class OneTimePad : BaseApplicableAlgorithm
     {
-
+        private static string key;
         public override AlgorithmResult ComputeOutput(string input)
         {
-            string key = "XMCKL";
             var result = new AlgorithmResult
             {
                 Input = input,
@@ -24,21 +24,19 @@ namespace TCC.Logic.Implementations
         }
         public override AlgorithmResult ComputeOutputDe(string input)
         {
-            string key = "XMCKL";
             var result = new AlgorithmResult
             {
                 Input = input,
-                Output = Decrypt(input, key)
+                Output = "Kann nicht Decrypted werden" /*Decrypt(input, key)*/
             };
 
             return result;
         }
         private string Encrypt(string input,string key)
         {
-            key = FixKeyLength(key, input.Length);
-
             input = FixInputString(input.ToUpper());
 
+            key = Generate(input.Length);
             StringBuilder result = new StringBuilder();
 
             for (int i = 0; i < input.Length; i++)
@@ -57,8 +55,47 @@ namespace TCC.Logic.Implementations
 
             return result.ToString();
         }
-        
-        private string Decrypt(string input, string key)
+        public static string Generate(int length)
+        {
+            const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var bytes = new byte[length];
+            var chars = new char[length];
+
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(bytes);
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = alphabet[bytes[i] % alphabet.Length];
+            }
+
+            return new string(chars);
+        }
+
+        private string FixInputString(string input)
+        {
+            StringBuilder result = new StringBuilder();
+
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c))
+                    result.Append(c);
+            }
+
+            return result.ToString();
+        }
+
+
+        /* Wenn key übergeben wird muss er auf die länge 
+         * gebracht werden fals unglich lang
+         * 
+         * Mit mehr zeit können man den Key speichern und 
+         * zum decrypten verwenden
+         */
+
+        /*private string Decrypt(string input, string key)
         {
             key = FixKeyLength(key, input.Length);
 
@@ -91,20 +128,8 @@ namespace TCC.Logic.Implementations
             }
 
             return result.ToString();
-        }
+        }*/
 
-        private string FixInputString(string input)
-        {
-            StringBuilder result = new StringBuilder();
-
-            foreach (char c in input)
-            {
-                if (char.IsLetter(c))
-                    result.Append(c);
-            }
-
-            return result.ToString();
-        }
 
 
     }
