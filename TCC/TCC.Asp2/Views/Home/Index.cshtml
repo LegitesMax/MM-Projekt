@@ -37,11 +37,11 @@
 
 
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                        <label class="form-label mb-0" for="Key">Key @Model?.Key</label>
+                        <label class="form-label mb-0" for="keyText">Key @Model?.Key</label>
                 </div>
                 <!--todo move key into text area-->
                 @* Textarea für Key *@
-                @Html.TextArea("Key", Model?.Key, 2, 0, new { @class = "form-control", id = "keyText" })
+                @Html.TextArea("key", Model?.Key ?? string.Empty, 2, 0, new { @class = "form-control", id = "keyText" })
                 </div>
 
                 <div class="d-flex justify-content-between mt-2">

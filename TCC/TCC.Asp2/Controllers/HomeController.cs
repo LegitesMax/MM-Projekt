@@ -19,8 +19,8 @@ namespace TCC.Asp.Controllers
         }
 
         //partial Methods for the Partial Classes
-        public partial IActionResult BtnCompressText(string input, CompressionAlgorithms compressionType);
-        public partial IActionResult BtnDecompressText(string input, CompressionAlgorithms compressionType);
+        public partial IActionResult BtnCompressText(string input, string key, CompressionAlgorithms compressionType);
+        public partial IActionResult BtnDecompressText(string input, string key, CompressionAlgorithms compressionType);
 
         public partial IActionResult BtnEncryptText(string input,string key, EncryptionAlgorithms encryptionType);
         public partial IActionResult BtnDecryptText(string input,string key, EncryptionAlgorithms encryptionType);
@@ -41,6 +41,7 @@ namespace TCC.Asp.Controllers
                 CompressionAlgorithms.RLE => new Compression.RLEImpl(),
                 CompressionAlgorithms.LZW => new Compression.LZWImpl(),
                 CompressionAlgorithms.Delta => new Compression.Delta(),
+                CompressionAlgorithms.XOR => new Compression.XOR(),
                 //I was das des ka CompressionAlgorithm is owa zu testzwecken trotdem do
                 CompressionAlgorithms.Binary => new Logic.Implementations.Binary(),
                 //Other Compress. Types....

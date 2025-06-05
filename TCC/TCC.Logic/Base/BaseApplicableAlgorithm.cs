@@ -8,8 +8,8 @@ namespace TCC.Logic.Base
         /// Hier wird die jeweilige Compresion-/Codierungsmethode umgesetzt
         /// </summary>
         /// <returns>Ergebnis der Codierung</returns>
-        public abstract AlgorithmResult ComputeOutput(string input,string? key = null);
-        public abstract AlgorithmResult ComputeOutputDe(string input,string? key = null);
+        public abstract AlgorithmResult ComputeOutput(string input,string? key);
+        public abstract AlgorithmResult ComputeOutputDe(string input,string? key);
 
     }
 }

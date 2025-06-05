@@ -6,6 +6,7 @@
         RLE, 
         Binary, 
         LZW, 
-        Delta
+        Delta,
+        XOR
     }
 }
