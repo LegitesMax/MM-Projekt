@@ -29,9 +29,53 @@ namespace TCC.Logic.Implementations.Encryption
         public override AlgorithmResult ComputeOutputDe(string input,string key)
         {
 
-            throw new NotImplementedException();
-        }
+            var result = new AlgorithmResult
+            {
+                Input = input,
+                Key = key,
+                Output = Decrypt(input, key)
+            };
 
+            return result;
+        }
+        private string Decrypt(string input,string key)
+        {
+            var result = new StringBuilder();
+
+            keyMatrix = CreateKeyFromString(key,input);
+
+            if (keyMatrix == null)
+            {
+                return "Key muss 144 Buchstaben (nur A-Z) enthalten, keine Zahlen oder Sonderzeichen.";
+            }
+
+            int[,] inverseKeyMatrix = InvertMatrixMod26(keyMatrix);
+            if (inverseKeyMatrix == null)
+            {
+                return "Key-Matrix ist nicht invertierbar modulo 26.";
+            }
+
+            input = FixInputString(input.ToUpper(),key);
+            int matrixSize = Convert.ToInt32(Math.Sqrt(key.Length));
+
+            for (int i = 0; i < input.Length; i += matrixSize)
+            {
+                int[] block = new int[matrixSize];
+                for (int j = 0; j < matrixSize; j++)
+                    block[j] = input[i + j] - 'A';
+
+                for (int row = 0; row < matrixSize; row++)
+                {
+                    int sum = 0;
+                    for (int col = 0; col < matrixSize; col++)
+                        sum += inverseKeyMatrix[row, col] * block[col];
+
+                    result.Append((char)(((sum % 26 + 26) % 26) + 'A'));
+                }
+            }
+
+            return result.ToString();
+        }
         private string Encrypt(string input,string key)
         {
             if(input == null) 
@@ -109,7 +153,6 @@ namespace TCC.Logic.Implementations.Encryption
                 if (char.IsLetter(c))
                 {
                     result[length,with] = c -'A';
-                    //result[length, with]++;
 
                     if (result[length,with]%26 == 0)
                     {
@@ -129,6 +172,69 @@ namespace TCC.Logic.Implementations.Encryption
             }
             return result;
         }
+        private static int[,]? InvertMatrixMod26(int[,] matrix)
+        {
+            int size = matrix.GetLength(0);
+            int[,] copy = new int[size, size];      
+            int[,] inverse = new int[size, size];   
 
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    copy[i, j] = ((matrix[i, j] % 26) + 26) % 26;
+                    inverse[i, j] = (i == j) ? 1 : 0;
+                }
+            }
+
+            for (int i = 0; i < size; i++)
+            {
+                int pivot = copy[i, i];
+                int inv = ModInverse(pivot, 26);
+                if (inv == -1) 
+                { 
+                    return null; 
+                }                
+
+                for (int j = 0; j < size; j++)
+                {
+                    copy[i, j] = (copy[i, j] * inv) % 26;
+                    inverse[i, j] = (inverse[i, j] * inv) % 26;
+                }
+
+                for (int k = 0; k < size; k++)
+                {
+                    if (k == i) continue;
+
+                    int factor = copy[k, i];
+                    for (int j = 0; j < size; j++)
+                    {
+                        copy[k, j] = (copy[k, j] - factor * copy[i, j]) % 26;
+                        inverse[k, j] = (inverse[k, j] - factor * inverse[i, j]) % 26;
+
+                        if (copy[k, j] < 0)
+                        {
+                            copy[k, j] += 26;
+                        }
+                        if (inverse[k, j] < 0)
+                        {
+                            inverse[k, j] += 26;
+                        }
+                    }
+                }
+            }
+
+            return inverse;
+        }
+        private static int ModInverse(int a, int m)
+        {
+            a = ((a % m) + m) % m;
+            for (int x = 1; x < m; x++)
+            {
+                if ((a * x) % m == 1)
+                    return x;
+            }
+            return -1; 
+        }
     }
 }
