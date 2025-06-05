@@ -19,6 +19,7 @@ namespace TCC.Logic.Implementations
             var result = new AlgorithmResult
             {
                 Input = input,
+                Key = key,
                 Output = Encrypt(input, key)
             };
 
@@ -33,26 +34,37 @@ namespace TCC.Logic.Implementations
 
         private string Encrypt(string input,string key)
         {
-            keyMatrix = Helper.CreateKeyFromString(key);
-
-            if (keyMatrix == null )
+            if(input == null) 
             {
-                return "Key muss angegeben sein, Darf Keine Buchstaben haben und muss im Format (2:2 1 2 1 2) sein";
+                return "Input muss gegeben sein";
+            }
+            input = FixInputString(input.ToUpper());
+            keyMatrix = CreateKeyFromString(key, input);
+
+            if (keyMatrix == null || !Helper.HasIntegerSquareRoot(key.Length))
+            {
+                return "Key muss angegeben sein, Darf Keine Zahlen haben, Muss mindestens 4 zeichen lang sein, Die Länge muss eine ganze Zahl als Quadratwurzel ergeben";
             }
 
-            input = FixInputString(input.ToUpper());
+            int matrixSize = Convert.ToInt32(Math.Sqrt(key.Length));
 
             StringBuilder result = new StringBuilder();
 
-            for (int i = 0; i < input.Length; i += 2)
+            for (int i = 0; i < input.Length; i += matrixSize)
             {
-                int letterOne = input[i] - 'A';
-                int letterTwo = input[i + 1] - 'A';
+                int[] inputBlock = new int[matrixSize];
 
-                result.Append((char)
-                    ((keyMatrix[0, 0] * letterOne + keyMatrix[0, 1] * letterTwo) % Mod + 'A'));
-                result.Append((char)
-                    ((keyMatrix[1, 0] * letterOne + keyMatrix[1, 1] * letterTwo) % Mod + 'A'));
+                for (int j = 0; j < matrixSize; j++)
+                    inputBlock[j] = input[i + j] - 'A';
+
+                for (int row = 0; row < matrixSize; row++)
+                {
+                    int sum = 0;
+                    for (int col = 0; col < matrixSize; col++)
+                        sum += keyMatrix[row, col] * inputBlock[col];
+
+                    result.Append((char)((sum % Mod + Mod) % Mod + 'A'));
+                }
             }
 
             return result.ToString();
@@ -74,6 +86,48 @@ namespace TCC.Logic.Implementations
              haben muss*/
 
             return result.ToString();
+        }
+        public static int[,]? CreateKeyFromString(string key, string input)
+        {
+            if (key == "" || key == null || input.Length % key.Length !=  0 || key.Length <=3)
+            {
+                return null;
+                // Bricht Encript ab und wirft eine nachricht
+            }
+            key = key.ToUpper();
+            int length = 0;
+            int with = 0;
+            int format = Convert.ToInt32(Math.Sqrt(key.Length));
+            if(format%1 != 0)
+            {
+                return null ;
+            }
+            int[,] result = new int[format, format];
+
+            foreach (char c in key)
+            {
+                if (char.IsLetter(c))
+                {
+                    result[length,with] = c -'A';
+                    //result[length, with]++;
+
+                    if (result[length,with]%26 == 0)
+                    {
+                        result[length,with]++;
+                    }
+                    with++;
+                    if (with % format == 0)
+                    {
+                        length++;
+                        with = 0;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return result;
         }
 
     }

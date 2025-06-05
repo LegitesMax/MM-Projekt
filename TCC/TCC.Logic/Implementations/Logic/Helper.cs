@@ -101,40 +101,13 @@ namespace TCC.Logic.Implementations.Logic
 
             return new string(chars);
         }
-        public static int[,] CreateKeyFromString(string key)
+        public static bool HasIntegerSquareRoot(int number)
         {
+            if (number < 0) return false; // Wurzel aus negativer Zahl ist nicht definiert (für int)
 
-            if (key == "" || key == null)
-            {
-                return null;
-                // Bricht Encript ab und wirft eine nachricht
-
-            }
-            foreach (char c in key)
-            {
-                if (char.IsLetter(c))
-                {
-                    return null;
-                    // Bricht Encript ab und wirft eine nachricht
-                }
-            }
-            string[] parts = key.Split(new[] { ':', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-            int length = Convert.ToInt32(parts[0]);
-            int with = Convert.ToInt32(parts[1]);
-
-            int[,] result = new int[length, with];
-            int counter = 2;
-
-            for (int i = 0; i < length; i++)
-            {
-                for (int j = 0; j < with; j++)
-                {
-                    result[i, j] = Convert.ToInt32(parts[counter++]);
-                }
-            }
-
-            return result;
+            double sqrt = Math.Sqrt(number);
+            return sqrt == Math.Floor(sqrt);
         }
+
     }
 }
