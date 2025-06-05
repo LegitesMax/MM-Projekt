@@ -34,7 +34,34 @@ namespace TCC.Logic.Implementations.Compression
 
         public override AlgorithmResult ComputeOutputDe(string input, string? key = null)
         {
-            throw new NotImplementedException();
+            var result = new AlgorithmResult();
+            result.Input = input;
+
+            // Zerlege die kommagetrennte Liste in Zahlen
+            var parts = input.Split(',');
+            List<int> values = new List<int>();
+
+            foreach (var part in parts)
+            {
+                if (int.TryParse(part.Trim(), out int val))
+                    values.Add(val);
+            }
+
+            // Jetzt rekonstruieren wir den Original-Text
+            List<char> tmp = new List<char>();
+
+            int current = values[0];
+            tmp.Add((char)current);
+
+            for (int i = 1; i < values.Count; i++)
+            {
+                current += values[i]; // Delta anwenden
+                tmp.Add((char)current);
+            }
+
+            result.Output = string.Join("", tmp.ToArray());
+
+            return result;
         }
     }
 }

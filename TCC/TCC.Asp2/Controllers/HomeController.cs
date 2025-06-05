@@ -40,7 +40,7 @@ namespace TCC.Asp.Controllers
                 CompressionAlgorithms.Huffman => new Compression.HuffmanAlgorithmImpl(),
                 CompressionAlgorithms.RLE => new Compression.RLEImpl(),
                 CompressionAlgorithms.LZW => new Compression.LZWImpl(),
-                CompressionAlgorithms.Delta => new Compression.LZWImpl(),
+                CompressionAlgorithms.Delta => new Compression.Delta(),
                 //I was das des ka CompressionAlgorithm is owa zu testzwecken trotdem do
                 CompressionAlgorithms.Binary => new Logic.Implementations.Binary(),
                 //Other Compress. Types....
