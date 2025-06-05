@@ -38,7 +38,7 @@ namespace TCC.Logic.Implementations.Encryption
             {
                 return "Input muss gegeben sein";
             }
-            input = FixInputString(input.ToUpper());
+            input = FixInputString(input.ToUpper(),key);
             keyMatrix = CreateKeyFromString(key, input);
 
             if (keyMatrix == null || !Helper.HasIntegerSquareRoot(key.Length))
@@ -70,7 +70,7 @@ namespace TCC.Logic.Implementations.Encryption
             return result.ToString();
         }
 
-        private string FixInputString(string input)
+        private string FixInputString(string input,string key)
         {
             StringBuilder result = new StringBuilder();
 
@@ -80,7 +80,7 @@ namespace TCC.Logic.Implementations.Encryption
                     result.Append(c);
             }
 
-            if (result.Length % 2 != 0)
+            if (result.Length % Math.Sqrt(key.Length) != 0)
                 result.Append('A');
             /*Note: Extra zeichen da der Input eine gerade Länge
              haben muss*/
@@ -89,7 +89,7 @@ namespace TCC.Logic.Implementations.Encryption
         }
         public static int[,]? CreateKeyFromString(string key, string input)
         {
-            if (key == "" || key == null || input.Length % key.Length !=  0 || key.Length <=3)
+            if (key == "" || key == null || (input.Length % key.Length !=  0 && key.Length % input.Length != 0) || key.Length <=3)
             {
                 return null;
                 // Bricht Encript ab und wirft eine nachricht
