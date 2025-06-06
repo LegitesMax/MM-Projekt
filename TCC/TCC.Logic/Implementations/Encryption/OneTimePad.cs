@@ -13,7 +13,7 @@ namespace TCC.Logic.Implementations.Encryption
     {
         public override AlgorithmResult ComputeOutput(string input, string key)
         {
-            if(key == null)
+            if(input != null)
             {
                 key = Helper.Generate(input.Length);
             }
