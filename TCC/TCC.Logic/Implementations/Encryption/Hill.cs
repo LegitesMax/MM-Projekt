@@ -15,13 +15,18 @@ namespace TCC.Logic.Implementations.Encryption
         private const int Mod = 26;
         public override AlgorithmResult ComputeOutput(string input, string key)
         {
-            //todo key in keymatix umwandeln
-            var result = new AlgorithmResult
+            var result = new AlgorithmResult();
+
+            try
             {
-                Input = input,
-                Key = key,
-                Output = Encrypt(input, key)
-            };
+                result.Input = input;
+                result.Key = key;
+                result.Output = Encrypt(input, key);
+            }
+            catch (Exception ex)
+            {
+                result.Output = $"Error during encoding: {ex.Message}";
+            }
 
             return result;
         }
@@ -29,18 +34,29 @@ namespace TCC.Logic.Implementations.Encryption
         public override AlgorithmResult ComputeOutputDe(string input,string key)
         {
 
-            var result = new AlgorithmResult
+            var result = new AlgorithmResult();
+
+            try
             {
-                Input = input,
-                Key = key,
-                Output = Decrypt(input, key)
-            };
+                result.Input = input;
+                result.Key = key;
+                result.Output = Decrypt(input, key);
+            }
+            catch (Exception ex)
+            {
+                result.Output = $"Error during encoding: {ex.Message}";
+            }
 
             return result;
         }
         private string Decrypt(string input,string key)
         {
             var result = new StringBuilder();
+
+            if(key == null || key == "key")
+            {
+                return "Key muss angegeben sein";
+            }
 
             keyMatrix = CreateKeyFromString(key,input);
 
@@ -78,16 +94,16 @@ namespace TCC.Logic.Implementations.Encryption
         }
         private string Encrypt(string input,string key)
         {
-            if(input == null) 
+            if(input == null || key == null)  
             {
-                return "Input muss gegeben sein";
+                return "Input oder Key muss gegeben sein";
             }
             input = FixInputString(input.ToUpper(),key);
             keyMatrix = CreateKeyFromString(key, input);
 
             if (keyMatrix == null || !Helper.HasIntegerSquareRoot(key.Length))
             {
-                return "Key muss angegeben sein, Darf Keine Zahlen haben, Muss mindestens 4 zeichen lang sein, Die Länge muss eine ganze Zahl als Quadratwurzel ergeben";
+                return "Key muss angegeben sein, Darf Keine Zahlen haben, Muss mindestens 4 zeichen lang sein, Die Länge muss eine ganze Zahl als Quadratwurzel ergeben und muss ein viellfaches der input TextLänge sein";
             }
 
             int matrixSize = Convert.ToInt32(Math.Sqrt(key.Length));
@@ -124,7 +140,7 @@ namespace TCC.Logic.Implementations.Encryption
                     result.Append(c);
             }
 
-            if (result.Length % Math.Sqrt(key.Length) != 0)
+            /*if (result.Length % Math.Sqrt(key.Length) != 0)
                 result.Append('A');
             /*Note: Extra zeichen da der Input eine gerade Länge
              haben muss*/
@@ -136,7 +152,6 @@ namespace TCC.Logic.Implementations.Encryption
             if (key == "" || key == null || (input.Length % key.Length !=  0 && key.Length % input.Length != 0) || key.Length <=3)
             {
                 return null;
-                // Bricht Encript ab und wirft eine nachricht
             }
             key = key.ToUpper();
             int length = 0;

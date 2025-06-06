@@ -17,23 +17,35 @@ namespace TCC.Logic.Implementations.Encryption
             {
                 key = Helper.Generate(input.Length);
             }
-            var result = new AlgorithmResult
+            var result = new AlgorithmResult();
+
+            try
             {
-                Input = input,
-                Key = key,
-                Output = Encrypt(input, key)
-            };
+                result.Input = input;
+                result.Key = key;
+                result.Output = Encrypt(input, key);
+            }
+            catch (Exception ex)
+            {
+                result.Output = $"Error during encoding: {ex.Message}";
+            }
             return result;
         }
         public override AlgorithmResult ComputeOutputDe(string input, string? key)
         {
 
-            var result = new AlgorithmResult
+            var result = new AlgorithmResult();
+
+            try
             {
-                Input = input,
-                Key = key,
-                Output = Decrypt(input, key)
-            };
+                result.Input = input;
+                result.Key = key;
+                result.Output = Decrypt(input, key);
+            }
+            catch (Exception ex)
+            {
+                result.Output = $"Error during encoding: {ex.Message}";
+            }
 
             return result;
         }
@@ -124,12 +136,7 @@ namespace TCC.Logic.Implementations.Encryption
         }
 
 
-        /* Wenn key übergeben wird muss er auf die länge 
-         * gebracht werden fals unglich lang
-         * 
-         * Mit mehr zeit können man den Key speichern und 
-         * zum decrypten verwenden
-         */
+
 
         private string Decrypt(string input, string? key)
         {
