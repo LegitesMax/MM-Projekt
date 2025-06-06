@@ -14,6 +14,7 @@ namespace TCC.Logic.Implementations.Encryption
             var result = new AlgorithmResult
             {
                 Input = input,
+                Key = key,
                 Output = Encrypt(input)
             };
 
@@ -25,6 +26,7 @@ namespace TCC.Logic.Implementations.Encryption
             var result = new AlgorithmResult
             {
                 Input = input,
+                Key = key,
                 Output = Decrypt(input)
             };
 

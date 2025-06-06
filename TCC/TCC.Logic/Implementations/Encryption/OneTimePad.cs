@@ -48,16 +48,13 @@ namespace TCC.Logic.Implementations.Encryption
 
             for (int i = 0; i < input.Length; i++)
             {
-                if (i != 0)
+
+                int c = ((input[i] - 'A') - (key[i] - 'A')) % 26;
+                if(c < 0)
                 {
-                    int charVal = (input[i] - 'A' + key[i % key.Length] - 'A') % 26;
-                    result.Append((char)(charVal + 'A'));
+                    c *= -1;
                 }
-                else 
-                {
-                    int charVal = (input[i] - 'A' + key[0] - 'A') % 26;
-                    result.Append((char)(charVal + 'A'));
-                }
+                result.Append((char)(c + 'A'));
             }
 
             return result.ToString();
@@ -87,22 +84,22 @@ namespace TCC.Logic.Implementations.Encryption
 
         private string Decrypt(string input, string key)
         {
+            return "todo";
+            input = FixInputString(input.ToUpper());
             key = FixKeyLength(key, input.Length);
 
             StringBuilder result = new StringBuilder();
 
             for (int i = 0; i < input.Length; i++)
             {
-                if (i != 0)
+                int c = input[i] - 'A';
+                int k = key[i] - 'A';
+                int p = (c -26 + k );
+                if (c < 0)
                 {
-                    int charVal = (input[i] - 'A' - (key[i % key.Length] - 'A') + 26) % 26;
-                    result.Append((char)(charVal + 'A'));
+                    c *= -1;
                 }
-                else
-                {
-                    int charVal = (input[i] - 'A' - (key[0] - 'A') + 26) % 26;
-                    result.Append((char)(charVal + 'A'));
-                }
+                result.Append((char)(p + 'A'));
             }
 
             return result.ToString();
