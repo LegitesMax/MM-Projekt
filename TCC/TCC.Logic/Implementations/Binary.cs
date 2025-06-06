@@ -25,7 +25,20 @@ namespace TCC.Logic.Implementations
 
         public override AlgorithmResult ComputeOutputDe(string input, string? key)
         {
-            throw new NotImplementedException();
+            var result = new AlgorithmResult();
+
+            result.Input = input;
+            try
+            {
+                result.Output = "TODO";
+            }
+            catch (Exception ex)
+            {
+                result.Output = $"Error during encoding: {ex.Message}";
+            }
+
+
+            return result;
         }
 
         public string Encode(string input)

@@ -49,7 +49,7 @@ namespace TCC.Logic.Implementations.Compression
             }
             catch (Exception ex)
             {
-                result.Output = $"Error during LZW decoding: {ex.Message}";
+                result.Output = $"Error during decoding: {ex.Message}";
             }
             return result;
 

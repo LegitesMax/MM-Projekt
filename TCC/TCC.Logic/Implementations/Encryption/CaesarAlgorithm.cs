@@ -11,24 +11,36 @@ namespace TCC.Logic.Implementations.Encryption
     {
         public override AlgorithmResult ComputeOutput(string input, string? key)
         {
-            var result = new AlgorithmResult
+            var result = new AlgorithmResult();
+
+            try
             {
-                Input = input,
-                Key = key,
-                Output = Encrypt(input)
-            };
+                result.Input = input;
+                result.Key = key;
+                result.Output = Encrypt(input);
+            }
+            catch (Exception ex)
+            {
+                result.Output = $"Error during encoding: {ex.Message}";
+            }
 
             return result;
         }
 
         public override AlgorithmResult ComputeOutputDe(string input,string? key)
         {
-            var result = new AlgorithmResult
+            var result = new AlgorithmResult();
+
+            try
             {
-                Input = input,
-                Key = key,
-                Output = Decrypt(input)
-            };
+                result.Input = input;
+                result.Key = key;
+                result.Output = Decrypt(input);
+            }
+            catch (Exception ex)
+            {
+                result.Output = $"Error during encoding: {ex.Message}";
+            }
 
             return result;
         }
