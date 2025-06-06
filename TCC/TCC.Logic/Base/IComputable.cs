@@ -4,6 +4,5 @@
     {
         AlgorithmResult ComputeOutput(string input,string key);
         AlgorithmResult ComputeOutputDe(string input, string key);
-
     }
 }

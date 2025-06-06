@@ -103,7 +103,7 @@ namespace TCC.Logic.Implementations.Logic
         }
         public static bool HasIntegerSquareRoot(int number)
         {
-            if (number < 0) return false; // Wurzel aus negativer Zahl ist nicht definiert (für int)
+            if (number < 0) return false; 
 
             double sqrt = Math.Sqrt(number);
             return sqrt == Math.Floor(sqrt);

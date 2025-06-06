@@ -13,8 +13,10 @@ namespace TCC.Logic.Implementations.Encryption
     {
         public override AlgorithmResult ComputeOutput(string input, string key)
         {
-
-            key = Helper.Generate(input.Length);
+            if(key == null)
+            {
+                key = Helper.Generate(input.Length);
+            }
             var result = new AlgorithmResult
             {
                 Input = input,
@@ -23,12 +25,9 @@ namespace TCC.Logic.Implementations.Encryption
             };
             return result;
         }
-        public override AlgorithmResult ComputeOutputDe(string input,string key)
+        public override AlgorithmResult ComputeOutputDe(string input, string? key)
         {
-            if (key == null || key == "")
-            {
-                key = Helper.Generate(input.Length);
-            }
+
             var result = new AlgorithmResult
             {
                 Input = input,
@@ -41,20 +40,70 @@ namespace TCC.Logic.Implementations.Encryption
     
         private string Encrypt(string input,string key)
         {
+            if(input == null || input == "")
+            {
+                return "Input muss befüllt werden";
+            }
             input = FixInputString(input.ToUpper());
-
-            key = Helper.Generate(input.Length);
+            input = ConvertToNumbCode(input.ToUpper());
             StringBuilder result = new StringBuilder();
-
+            key = ConvertToNumbCode(key.ToUpper());
+            int inputI = 0;
+            int keyI = 0;
+            int tmp = 0;
             for (int i = 0; i < input.Length; i++)
             {
-
-                int c = ((input[i] - 'A') - (key[i] - 'A')) % 26;
-                if(c < 0)
+                inputI = input[i] - '0';
+                keyI = key[i] - '0';
+                tmp = inputI - keyI;
+                if (tmp <= -1)
                 {
-                    c *= -1;
+                    tmp *= -1;
                 }
-                result.Append((char)(c + 'A'));
+                if (inputI < keyI)
+                {
+                    tmp = 10 - tmp;
+                }
+
+                result.Append(tmp.ToString());
+            }
+
+            return result.ToString();
+        }
+        private string ConvertToNumbCode(string input)
+        {
+            StringBuilder result = new StringBuilder();
+
+            input = input.ToUpper();
+
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c))
+                {
+                    int value = (c - 'A') % 26;
+                    result.Append(value.ToString("D2")); 
+                }
+            }
+
+            return result.ToString();
+        }
+
+        private string ConvertFromNumbCodeToString(string numberString)
+        {
+            StringBuilder result = new StringBuilder();
+
+            for (int i = 0; i < numberString.Length; i += 2)
+            {
+                string twoDigits = numberString.Substring(i, 2);
+                if (int.TryParse(twoDigits, out int value) && value >= 0 && value < 26 )
+                {
+                    char letter = (char)('A' + value);
+                    result.Append(letter);
+                }
+                else
+                {
+                    result.Append('?'); 
+                }
             }
 
             return result.ToString();
@@ -82,27 +131,31 @@ namespace TCC.Logic.Implementations.Encryption
          * zum decrypten verwenden
          */
 
-        private string Decrypt(string input, string key)
+        private string Decrypt(string input, string? key)
         {
-            return "todo";
-            input = FixInputString(input.ToUpper());
-            key = FixKeyLength(key, input.Length);
-
-            StringBuilder result = new StringBuilder();
-
-            for (int i = 0; i < input.Length; i++)
+            if (key == null || key == "" || key.Length != (input.Length/2))
             {
-                int c = input[i] - 'A';
-                int k = key[i] - 'A';
-                int p = (c -26 + k );
-                if (c < 0)
-                {
-                    c *= -1;
-                }
-                result.Append((char)(p + 'A'));
+                return "Key muss angegeben werden";
             }
 
-            return result.ToString();
+            key = ConvertToNumbCode(key);
+            StringBuilder result = new StringBuilder();
+            int inputI = 0;
+            int keyI = 0;
+            int tmp = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                inputI = input[i] - '0';
+                keyI = key[i] - '0';
+
+                tmp = (inputI + keyI) % 10;
+
+
+                result.Append(tmp.ToString());
+
+            }
+
+            return ConvertFromNumbCodeToString(result.ToString());
         }
          
         private string FixKeyLength(string key,int length)
