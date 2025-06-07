@@ -33,8 +33,9 @@
 
                 @* Textarea für Input *@
                 @Html.TextArea("input", Model?.Input ?? string.Empty, 20, 0, new { @class = "form-control", id = "inputText" })
-
-
+                <div class="d-flex justify-content-between mt-2">
+                    <a class="btn btn-primary" asp-action="btnCopyTextInput" id="btnCopyInput"> Copy </a>
+                </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-2">
                         <label class="form-label mb-0" for="keyText">Key @Model?.Key</label>
@@ -44,11 +45,6 @@
                 @Html.TextArea("key", Model?.Key ?? string.Empty, 2, 0, new { @class = "form-control", id = "keyText" })
                 </div>
 
-                <div class="d-flex justify-content-between mt-2">
-                    @* optionaler weiterer Select neben „Copy“, behält Layout bei *@
-                    @Html.DropDownList("type", compressionSelection,new { @class = "form-select me-2", id = "type"})
-                    <a class="btn btn-primary" asp-action="btnCopyTextInput" id="btnCopyInput"> Copy </a>
-                </div>
             </div>
 
             <!-- Middle -->
@@ -95,7 +91,7 @@
                         else
                         {
                             <span>@Model.Statistic.SavedSizePercent</span>
-                        } saved
+                        } % saved
                     </span>
                 </div>
             </div>
@@ -111,7 +107,6 @@
                 @Html.TextArea("output", Model?.Output ?? string.Empty, 20, 0, new { @class = "form-control", id = "outputText", @readonly = "readonly"} )
 
                 <div class="d-flex justify-content-between mt-2">
-                    @Html.DropDownList("type2", encryptSelection, new { @class = "form-select me-2", id = "type2"})
                     <a class="btn btn-primary"
                        asp-action="btnCopyTextOutput"
                        id="btnCopyOutput">

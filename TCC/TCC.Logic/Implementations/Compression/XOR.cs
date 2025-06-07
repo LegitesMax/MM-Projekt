@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TCC.Logic.Base;
+﻿using TCC.Logic.Base;
 
 namespace TCC.Logic.Implementations.Compression
 {
@@ -11,6 +6,15 @@ namespace TCC.Logic.Implementations.Compression
     {
         public override AlgorithmResult ComputeOutput(string input, string? key)
         {
+            if (string.IsNullOrEmpty(key))
+            {
+                return new AlgorithmResult()
+                {
+                    Input = input,
+                    Output = "Key benötigt"
+                };
+            }
+            
             var result = new AlgorithmResult();
             result.Input = input;
 

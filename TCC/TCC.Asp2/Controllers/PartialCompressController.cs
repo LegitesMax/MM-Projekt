@@ -11,10 +11,7 @@ namespace TCC.Asp.Controllers
             var result = new AlgorithmResult();
 
             var compressionMethod = SelectCompressionModel(compressionType);
-
-            result.Output = compressionMethod.ComputeOutput(input, key).Output;
-            result.Input = compressionMethod.ComputeOutput(input, key).Input;
-
+            result = compressionMethod.ComputeOutput(input, key);
 
             return View("Index", result);
         }

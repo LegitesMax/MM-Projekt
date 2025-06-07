@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCC.ConApp", "TCC.ConApp\TCC.ConApp.csproj", "{6FDE03D7-8CE7-4D11-82F6-49732103CEBE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCC.Logic", "TCC.Logic\TCC.Logic.csproj", "{2AF0CF6B-EC20-4B05-9EE9-40B4D300EDD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCC.Asp", "TCC.Asp2\TCC.Asp.csproj", "{F993B087-9432-4CAA-97ED-DCB6B6FD5241}"
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6FDE03D7-8CE7-4D11-82F6-49732103CEBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FDE03D7-8CE7-4D11-82F6-49732103CEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FDE03D7-8CE7-4D11-82F6-49732103CEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FDE03D7-8CE7-4D11-82F6-49732103CEBE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2AF0CF6B-EC20-4B05-9EE9-40B4D300EDD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2AF0CF6B-EC20-4B05-9EE9-40B4D300EDD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AF0CF6B-EC20-4B05-9EE9-40B4D300EDD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDF2E40F-F400-411A-B24E-5FFFEC692709}
 	EndGlobalSection
 EndGlobal

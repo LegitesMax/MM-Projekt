@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using TCC.Logic.Base;
 using TCC.Logic.Implementations.Logic;
 
@@ -13,11 +8,12 @@ namespace TCC.Logic.Implementations.Encryption
     {
         public override AlgorithmResult ComputeOutput(string input, string key)
         {
-            if(input != null)
+            if (input != null)
             {
                 key = Helper.Generate(input.Length);
             }
             var result = new AlgorithmResult();
+            result.Statistic.IsOutputBinary = true;
 
             try
             {
@@ -49,10 +45,10 @@ namespace TCC.Logic.Implementations.Encryption
 
             return result;
         }
-    
-        private string Encrypt(string input,string key)
+
+        private string Encrypt(string input, string key)
         {
-            if(input == null || input == "")
+            if (input == null || input == "")
             {
                 return "Input muss befüllt werden";
             }
@@ -93,7 +89,7 @@ namespace TCC.Logic.Implementations.Encryption
                 if (char.IsLetter(c))
                 {
                     int value = (c - 'A') % 26;
-                    result.Append(value.ToString("D2")); 
+                    result.Append(value.ToString("D2"));
                 }
             }
 
@@ -107,14 +103,14 @@ namespace TCC.Logic.Implementations.Encryption
             for (int i = 0; i < numberString.Length; i += 2)
             {
                 string twoDigits = numberString.Substring(i, 2);
-                if (int.TryParse(twoDigits, out int value) && value >= 0 && value < 26 )
+                if (int.TryParse(twoDigits, out int value) && value >= 0 && value < 26)
                 {
                     char letter = (char)('A' + value);
                     result.Append(letter);
                 }
                 else
                 {
-                    result.Append('?'); 
+                    result.Append('?');
                 }
             }
 
@@ -140,7 +136,7 @@ namespace TCC.Logic.Implementations.Encryption
 
         private string Decrypt(string input, string? key)
         {
-            if (key == null || key == "" || key.Length != (input.Length/2))
+            if (key == null || key == "" || key.Length != (input.Length / 2))
             {
                 return "Key muss angegeben werden";
             }
@@ -164,8 +160,8 @@ namespace TCC.Logic.Implementations.Encryption
 
             return ConvertFromNumbCodeToString(result.ToString());
         }
-         
-        private string FixKeyLength(string key,int length)
+
+        private string FixKeyLength(string key, int length)
         {
             StringBuilder result = new StringBuilder();
 

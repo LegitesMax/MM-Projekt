@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Xml.Linq;
 using TCC.Logic.Base;
 using TCC.Logic.Implementations.Logic;
 
@@ -12,6 +11,7 @@ namespace TCC.Logic.Implementations.Compression
         public override AlgorithmResult ComputeOutput(string input, string? key)
         {
             var result = new AlgorithmResult();
+            result.Statistic.IsOutputBinary = true;
 
             result.Input = input;
             try
@@ -29,6 +29,7 @@ namespace TCC.Logic.Implementations.Compression
         public override AlgorithmResult ComputeOutputDe(string input, string? key)
         {
             var result = new AlgorithmResult();
+            result.Statistic.IsInputBinary = true;
 
             result.Input = input;
             try
@@ -94,12 +95,12 @@ namespace TCC.Logic.Implementations.Compression
             {
                 if (code.Length == 0)
                 {
-                    node.Code = "0";  
+                    node.Code = "0";
                 }
                 else
                 {
-                    node.Code = code;  
-                }  
+                    node.Code = code;
+                }
                 return;
             }
 

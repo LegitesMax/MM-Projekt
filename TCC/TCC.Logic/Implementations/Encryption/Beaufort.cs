@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using TCC.Logic.Base;
 
 namespace TCC.Logic.Implementations.Encryption
 {
     public class Beaufort : BaseApplicableAlgorithm
     {
-        public override AlgorithmResult ComputeOutput(string input,string? key)
+        public override AlgorithmResult ComputeOutput(string input, string? key)
         {
             var result = new AlgorithmResult();
 
@@ -26,7 +22,7 @@ namespace TCC.Logic.Implementations.Encryption
 
             return result;
         }
-        public override AlgorithmResult ComputeOutputDe(string input,string? key)
+        public override AlgorithmResult ComputeOutputDe(string input, string? key)
         {
             var result = new AlgorithmResult();
 
@@ -45,21 +41,21 @@ namespace TCC.Logic.Implementations.Encryption
         }
         private string Encrypt(string input, string key)
         {
-            if (key == null) 
+            if (key == null)
             {
                 return "Key muss angegeben werden";
             }
             key = key.ToUpper();
             int counter = 0;
             StringBuilder result = new StringBuilder();
-            foreach (char c in input) 
+            foreach (char c in input)
             {
                 if (char.IsLetter(c))
                 {
                     char tmp = char.ToUpper(c);
                     tmp = (char)('A' + (key[counter % key.Length] - tmp + 26) % 26);
                     if (char.IsLower(c))
-                    { 
+                    {
                         result.Append(char.ToLower(tmp));
                     }
                     else
@@ -77,10 +73,10 @@ namespace TCC.Logic.Implementations.Encryption
 
             return result.ToString();
         }
-        
+
         private string Decrypt(string input, string key)
         {
-            return Encrypt(input, key); 
+            return Encrypt(input, key);
         }
 
 

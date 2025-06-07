@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using TCC.Logic.Base;
 using TCC.Logic.Implementations.Logic;
 
@@ -10,7 +6,7 @@ namespace TCC.Logic.Implementations.Compression
 {
     public class LZWImpl : BaseApplicableAlgorithm
     {
-        
+
         private const int DEFAULT_MAX_TABLE_SIZE = 4096; //Tablelimit 4096=12bit (4096 entries)
         private const int INITIAL_RANGE = 256; //Standard ASCII range
 
@@ -18,11 +14,12 @@ namespace TCC.Logic.Implementations.Compression
         public override AlgorithmResult ComputeOutput(string input, string? key)
         {
             var result = new AlgorithmResult();
+            result.Statistic.IsOutputBinary = true;
 
             result.Input = input;
             try
             {
-                result.Output = Encode(input);
+                result.Output = Helper.ConvertToBinary(Encode(input));
             }
             catch (Exception ex)
             {
@@ -37,7 +34,7 @@ namespace TCC.Logic.Implementations.Compression
             var result = new AlgorithmResult();
             result.Input = input;
 
-            if (string.IsNullOrWhiteSpace(input)) 
+            if (string.IsNullOrWhiteSpace(input))
             {
                 result.Output = string.Empty;
                 return result;
@@ -45,6 +42,7 @@ namespace TCC.Logic.Implementations.Compression
 
             try
             {
+                //TODO: add binary decode of input
                 result.Output = Decode(input);
             }
             catch (Exception ex)
@@ -79,7 +77,7 @@ namespace TCC.Logic.Implementations.Compression
                         codeTable.Add(pattern);
                     }
 
-                    prefix = suffix; 
+                    prefix = suffix;
                 }
             }
 
@@ -95,11 +93,11 @@ namespace TCC.Logic.Implementations.Compression
         private string Decode(string encodedInput)
         {
             List<int> codes;
-            
-             codes = encodedInput.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                                 .Select(int.Parse)
-                                 .ToList();
-            
+
+            codes = encodedInput.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(int.Parse)
+                                .ToList();
+
 
             if (codes.Count == 0)
                 return string.Empty;

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TCC.Logic.Implementations.Logic
 {
@@ -103,7 +98,7 @@ namespace TCC.Logic.Implementations.Logic
         }
         public static bool HasIntegerSquareRoot(int number)
         {
-            if (number < 0) return false; 
+            if (number < 0) return false;
 
             double sqrt = Math.Sqrt(number);
             return sqrt == Math.Floor(sqrt);
