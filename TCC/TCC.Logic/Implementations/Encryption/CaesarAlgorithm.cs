@@ -14,10 +14,10 @@ namespace TCC.Logic.Implementations.Encryption
             var result = new AlgorithmResult();
 
             try
-            {
+            { 
                 result.Input = input;
                 result.Key = key;
-                result.Output = Encrypt(input);
+                result.Output = Encrypt(input, key);
             }
             catch (Exception ex)
             {
@@ -35,7 +35,7 @@ namespace TCC.Logic.Implementations.Encryption
             {
                 result.Input = input;
                 result.Key = key;
-                result.Output = Decrypt(input);
+                result.Output = Decrypt(input, key);
             }
             catch (Exception ex)
             {
@@ -45,13 +45,48 @@ namespace TCC.Logic.Implementations.Encryption
             return result;
         }
 
-        private string Encrypt(string input)
+        private string Encrypt(string input, string? key)
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(key)) key = "0";
+            int offset = 0;
+            StringBuilder sb = new StringBuilder();
+            char tmp;
+            if(!Int32.TryParse(key, out offset)) return input;
+            foreach (char c in input) {
+                if (Char.IsLetter(c))
+                {
+                    tmp = (char)(c + offset % 26);
+                    tmp = Char.IsLetter(tmp) ? tmp : (char)(tmp - 26);
+                }
+                else
+                {
+                    tmp = c;
+                }
+                sb.Append(tmp);
+            }
+            return sb.ToString();
         }
-        private string Decrypt(string input)
+        private string Decrypt(string input, string? key)
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(key)) key = "0";
+            int offset = 0;
+            StringBuilder sb = new StringBuilder();
+            char tmp;
+            if (!Int32.TryParse(key, out offset)) return input;
+            foreach (char c in input)
+            {
+                if (Char.IsLetter(c))
+                {
+                    tmp = (char)(c - offset % 26);
+                    tmp = Char.IsLetter(tmp) ? tmp : (char)(tmp + 26);
+                }
+                else
+                {
+                    tmp = c;
+                }
+                sb.Append(tmp);
+            }
+            return sb.ToString();
         }
     }
 }
