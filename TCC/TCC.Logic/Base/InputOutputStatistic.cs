@@ -10,7 +10,7 @@
         public bool IsOutputBinary { get; set; } = false;
 
         public int SizeDifference => ToCorrectSize(IsInputBinary, InputSize) - ToCorrectSize(IsOutputBinary, OutputSize);
-        public double SavedSizePercent => Math.Round((double)SizeDifference / (double)InputSize * 100.0, 2);
+        public double SavedSizePercent => Math.Round((double)SizeDifference / (double)ToCorrectSize(IsInputBinary, InputSize) * 100.0, 2);
 
         private int ToCorrectSize(bool isBinary, int utfCount)
         {
