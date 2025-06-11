@@ -53,7 +53,9 @@ namespace TCC.Logic.Implementations.Encryption
         {
             var result = new StringBuilder();
 
-            if(key == null || key == "key")
+            input = FixInputString(input.ToUpper(), key);
+
+            if (key == null || key == "key")
             {
                 return "Key muss angegeben sein";
             }
@@ -71,7 +73,6 @@ namespace TCC.Logic.Implementations.Encryption
                 return "Key-Matrix ist nicht invertierbar modulo 26.";
             }
 
-            input = FixInputString(input.ToUpper(),key);
             int matrixSize = Convert.ToInt32(Math.Sqrt(key.Length));
 
             for (int i = 0; i < input.Length; i += matrixSize)
@@ -94,11 +95,12 @@ namespace TCC.Logic.Implementations.Encryption
         }
         private string Encrypt(string input,string key)
         {
-            if(input == null || key == null)  
+            input = FixInputString(input.ToUpper(), key);
+
+            if (input == null || key == null)  
             {
                 return "Input oder Key muss gegeben sein";
             }
-            input = FixInputString(input.ToUpper(),key);
             keyMatrix = CreateKeyFromString(key, input);
 
             if (keyMatrix == null || !Helper.HasIntegerSquareRoot(key.Length))
