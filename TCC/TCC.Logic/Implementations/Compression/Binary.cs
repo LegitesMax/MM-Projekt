@@ -1,4 +1,6 @@
-﻿using TCC.Logic.Base;
+﻿using System.Text;
+using System.Text.RegularExpressions;
+using TCC.Logic.Base;
 using TCC.Logic.Implementations.Logic;
 
 namespace TCC.Logic.Implementations
@@ -23,14 +25,20 @@ namespace TCC.Logic.Implementations
             result.Input = input;
             try
             {
-                result.Output = "TODO";
+                result.Output = Decode(input);
             }
             catch (Exception ex)
             {
                 result.Output = $"Error during encoding: {ex.Message}";
             }
 
+
             return result;
+        }
+
+        private string Decode(string input)
+        {
+            return Helper.ConvertFromBinary(input);
         }
 
         public string Encode(string input)

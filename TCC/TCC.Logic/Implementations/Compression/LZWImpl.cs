@@ -42,8 +42,7 @@ namespace TCC.Logic.Implementations.Compression
 
             try
             {
-                //TODO: add binary decode of input
-                result.Output = Decode(input);
+                result.Output = Decode(Helper.ConvertFromBinary(input));
             }
             catch (Exception ex)
             {

@@ -34,7 +34,7 @@
                 @* Textarea für Input *@
                 @Html.TextArea("input", Model?.Input ?? string.Empty, 20, 0, new { @class = "form-control", id = "inputText" })
                 <div class="d-flex justify-content-between mt-2">
-                    <a class="btn btn-primary" asp-action="btnCopyTextInput" id="btnCopyInput"> Copy </a>
+                    <a class="btn btn-primary" onclick="copyText('inputText')" id="btnCopyInput"> Copy </a>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-2">
@@ -107,7 +107,7 @@
                 @Html.TextArea("output", Model?.Output ?? string.Empty, 20, 0, new { @class = "form-control", id = "outputText", @readonly = "readonly"} )
 
                 <div class="d-flex justify-content-between mt-2">
-                    <a class="btn btn-primary" asp-action="btnCopyTextOutput" id="btnCopyOutput"> Copy </a>
+                    <a class="btn btn-primary" onclick="copyText('outputText')" id="btnCopyOutput"> Copy </a>
                 </div>
             </div>
 
@@ -116,6 +116,16 @@
 </form>
 
 @section Scripts {
+    <script>
+        function copyText(elementId) {
+            let inputText = document.getElementById(elementId).value;
+
+            navigator.clipboard.writeText(inputText);
+
+            alert("Copied to clipboard");
+        }
+    </script>
+
     <script>
         document.getElementById("btnUpload").addEventListener("click", function (e) {
             e.preventDefault();
