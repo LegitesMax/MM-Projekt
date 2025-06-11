@@ -6,20 +6,22 @@ namespace TCC.Logic.Implementations.Encryption
 {
     public class OneTimePad : BaseApplicableAlgorithm
     {
+        private string overKey;
         public override AlgorithmResult ComputeOutput(string input, string key)
         {
-            if (input != null)
-            {
-                key = Helper.Generate(input.Length);
-            }
+            //if (input != null)
+            //{
+            //    key = Helper.Generate(input.Length);
+            //}
             var result = new AlgorithmResult();
             result.Statistic.IsOutputBinary = true;
 
             try
             {
                 result.Input = input;
-                result.Key = key;
                 result.Output = Encrypt(input, key);
+                result.Key = overKey;
+
             }
             catch (Exception ex)
             {
@@ -31,7 +33,6 @@ namespace TCC.Logic.Implementations.Encryption
         {
 
             var result = new AlgorithmResult();
-
             try
             {
                 result.Input = input;
@@ -42,6 +43,7 @@ namespace TCC.Logic.Implementations.Encryption
             {
                 result.Output = $"Error during encoding: {ex.Message}";
             }
+            overKey = key;
 
             return result;
         }
@@ -53,6 +55,11 @@ namespace TCC.Logic.Implementations.Encryption
                 return "Input muss befüllt werden";
             }
             input = FixInputString(input.ToUpper());
+            if (input != null)
+            {
+                key = Helper.Generate(input.Length);
+            }
+            overKey = key;
             input = ConvertToNumbCode(input.ToUpper());
             StringBuilder result = new StringBuilder();
             key = ConvertToNumbCode(key.ToUpper());
