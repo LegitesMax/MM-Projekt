@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 using TCC.Logic.Base;
 using TCC.Logic.Implementations.Logic;
 
@@ -10,7 +11,7 @@ namespace TCC.Logic.Implementations.Compression
     public class RLEImpl : BaseApplicableAlgorithm
     {
         //Man kann irgendwas einsetzen was normalerweise nie verwendet wird, am besten Ascii Steuerzeichen weil die nicht abgebildet werden können.
-        private const char Marker = '\x00';
+        private const char Marker = '\x01';
 
         public override AlgorithmResult ComputeOutput(string input, string? key)
         {
@@ -36,7 +37,7 @@ namespace TCC.Logic.Implementations.Compression
             result.Input = input;
             try
             {
-                result.Output = "TODO";
+                result.Output = Decode(input);
             }
             catch (Exception ex)
             {
@@ -45,6 +46,12 @@ namespace TCC.Logic.Implementations.Compression
 
 
             return result;
+        }
+
+        private string Decode(string input)
+        {
+            return Regex.Replace(input, "(.)" + Marker + "(\\d+)", m =>  new string(m.Groups[1].Value[0], int.Parse(m.Groups[2].Value)));
+       
         }
 
         public string Encode(string input)
