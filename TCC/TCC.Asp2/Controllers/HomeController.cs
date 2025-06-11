@@ -69,6 +69,15 @@ namespace TCC.Asp.Controllers
             };
         }
 
+        public IActionResult btnDownloadAsFile(string output)
+        {
+            if (string.IsNullOrEmpty(output))
+                output = "Error: Kein Text zum Download vorhanden!";
+
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(output);
+
+            return File(bytes, "text/plain", "Download.txt");
+        }
 
         //Error Page
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
