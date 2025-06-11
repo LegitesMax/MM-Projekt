@@ -38,14 +38,7 @@ namespace TCC.Logic.Implementations
 
         private string Decode(string input)
         {
-            StringBuilder sb = new StringBuilder();
-            if (!Regex.IsMatch(input, "^[01 ]*$")) return "Input is not binary";
-            input = input.Replace(" ", String.Empty);
-            for (int i = 0; i < input.Length; i += 8)
-            {
-                sb.Append((char)Convert.ToByte(input.Substring(i, ((input.Length - i >= 8) ? 8 : input.Length - i)), 2));
-            }
-            return sb.ToString();
+            return Helper.ConvertFromBinary(input);
         }
 
         public string Encode(string input)

@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace TCC.Logic.Implementations.Logic
 {
@@ -20,6 +21,19 @@ namespace TCC.Logic.Implementations.Logic
 
             return binaryOutput.ToString().TrimEnd();
         }
+
+        public static string ConvertFromBinary(string input)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (!Regex.IsMatch(input, "^[01 ]*$")) return "Input is not binary";
+            input = input.Replace(" ", string.Empty);
+            for (int i = 0; i < input.Length; i += 8)
+            {
+                sb.Append((char)Convert.ToByte(input.Substring(i, ((input.Length - i >= 8) ? 8 : input.Length - i)), 2));
+            }
+            return sb.ToString();
+        }
+
         public static List<Patterns> FindPatterns(string input, int patternLength, int minRepeats)
         {
             var matches = new List<Patterns>();
