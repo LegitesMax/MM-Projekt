@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TCC.Logic.Base;
 using TCC.Logic.Implementations.Logic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TCC.Logic.Implementations.Encryption
 {
@@ -151,7 +152,7 @@ namespace TCC.Logic.Implementations.Encryption
         }
         public static int[,]? CreateKeyFromString(string key, string input)
         {
-            if (key == "" || key == null || (input.Length % key.Length !=  0 && key.Length % input.Length != 0) || key.Length <=3)
+            if (key == "" || key == null || (input.Length % Math.Sqrt(key.Length) !=  0 && Math.Sqrt(key.Length) % input.Length != 0) || key.Length <=3)
             {
                 return null;
             }
